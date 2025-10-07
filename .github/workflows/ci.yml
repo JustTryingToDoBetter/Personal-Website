@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SECRET_KEY: fo0dLov3R$
+      DJANGO_DEBUG: 'True'
+      DJANGO_ALLOWED_HOSTS: localhost
+      DATABASE_URL: sqlite:///$(pwd)/test.db
+      CORS_ALLOW_ALL_ORIGINS: 'True'
+      BASIC_AUTH_USER: admin
+      BASIC_AUTH_PASS: p@$$w0Rd1209
+      DJANGO_API_URL: http://localhost:8000/api
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # ---------- Node.js dependencies ----------
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install middleware dependencies
+        run: npm install --prefix middleware
+
+      - name: Install frontend dependencies
+        run: npm install --prefix frontend
+
+      - name: Build Vue frontend
+        run: npm run build --prefix frontend
+
+      # ---------- Python dependencies ----------
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Run Django checks and migrations
+        run: |
+          python backend/manage.py migrate --noinput
+          python backend/manage.py check
+
+      # ---------- Run tests (placeholder) ----------
+      - name: Run backend tests
+        run: |
+          echo "No tests configured yet."
+
+      - name: Run frontend lint (placeholder)
+        run: |
+          echo "No linter configured yet."
