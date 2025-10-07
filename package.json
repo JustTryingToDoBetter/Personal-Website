@@ -1,0 +1,8 @@
+{
+  "name": "jaydin-morrison-site",
+  "private": true,
+  "workspaces": ["frontend", "middleware"],
+  "scripts": {
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+  }
+}
