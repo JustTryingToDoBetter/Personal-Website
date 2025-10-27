@@ -1,8 +1,16 @@
 {
   "name": "jaydin-morrison-site",
   "private": true,
-  "workspaces": ["frontend", "middleware"],
+  "workspaces": [
+    "frontend",
+    "middleware"
+  ],
   "scripts": {
     "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "dependencies": {
+    "@vueuse/motion": "^3.0.3",
+    "three": "^0.180.0",
+    "vanta": "^0.5.24"
   }
 }
