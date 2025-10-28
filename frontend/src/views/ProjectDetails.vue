@@ -1,40 +1,62 @@
 <template>
-  <div v-if="project" class="container mx-auto px-4 py-16">
-    <h1 class="text-3xl font-bold mb-4">{{ project.title }}</h1>
-    <p class="text-gray-700 mb-4">{{ project.description }}</p>
-    <img
-      v-if="project.image_url"
-      :src="project.image_url"
-      :alt="project.title"
-      class="mb-4 max-w-full h-auto rounded"
-    />
-    <router-link to="/projects" class="text-blue-600 hover:underline">
-      &larr; Back to Projects
-    </router-link>
-  </div>
-  <div v-else class="container mx-auto px-4 py-16 text-center">
-    <p class="text-gray-600">Loading project...</p>
-  </div>
+  <section class="p-10 text-gray-900 bg-white min-h-screen">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl font-bold mb-4">
+        {{ project?.title || `Project #${id}` }}
+      </h1>
+
+      <p class="text-gray-700 mb-8 leading-relaxed">
+        {{ project?.description || 'Description coming soon...' }}
+      </p>
+
+      <router-link
+        to="/"
+        class="text-blue-600 hover:underline"
+      >
+        ← Back to Home
+      </router-link>
+    </div>
+  </section>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
-  name: 'ProjectDetails',
+  name: 'ProjectDetail',
+  props: ['id'],
   data() {
     return {
-      project: null,
+      projects: [
+        {
+          id: 1,
+          title: 'Neural Pulse',
+          description:
+            'Interactive real-time data streams rendered through cyberpunk UI.',
+        },
+        {
+          id: 2,
+          title: 'EchoGrid',
+          description:
+            'Asynchronous dashboard visualizer for futuristic system telemetry.',
+        },
+        {
+          id: 3,
+          title: 'OrbitVision',
+          description:
+            '3D multi-object tracking visualizer powered by YOLOv8 and DeepSORT.',
+        },
+      ],
     }
   },
-  async created() {
-    const id = this.$route.params.id
-    try {
-      const response = await axios.get(`/api/projects/${id}/`)
-      this.project = response.data
-    } catch (error) {
-      console.error('Error loading project', error)
-    }
+  computed: {
+    project() {
+      return this.projects.find(p => p.id === Number(this.id))
+    },
   },
 }
 </script>
+
+<style scoped>
+section {
+  transition: all 0.3s ease;
+}
+</style>

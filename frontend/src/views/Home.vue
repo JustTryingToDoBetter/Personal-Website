@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="relative overflow-hidden text-white">
+    <div class="absolute inset-0 bg-gradient-to-tr from-[#FF007A]/10 via-[#00FFF0]/10 to-[#250045]/10 animate-gradientShift -z-10"></div>
     <!-- Hero Section -->
     <section class="bg-white py-20 text-center">
       <div class="container mx-auto px-4">
@@ -49,17 +50,39 @@ import axios from 'axios'
 
 export default {
   name: 'Home',
+
   data() {
     return {
-      projects: [],
+      projects: [], // array of projects to show in UI
     }
   },
+
   async created() {
     try {
-      const response = await axios.get('/api/projects')
-      this.projects = response.data
+      // ✅ STEP 1 — temporarily disable live API call (your Codespace rejects it with 401)
+      // const response = await axios.get('/api/projects')
+      // this.projects = response.data
+
+      // ✅ STEP 2 — use mock data locally while backend is offline
+      this.projects = [
+        {
+          id: 1,
+          title: 'Neural Pulse',
+          description: 'Interactive real-time data streams rendered through cyberpunk UI.',
+        },
+        {
+          id: 2,
+          title: 'EchoGrid',
+          description: 'Asynchronous dashboard visualizer for futuristic system telemetry.',
+        },
+        {
+          id: 3,
+          title: 'OrbitVision',
+          description: '3D multi-object tracking visualizer powered by YOLOv8 and DeepSORT.',
+        },
+      ]
     } catch (error) {
-      // In production we might send this error to an error tracking service
+      // optional: forward this to a logger later (Sentry, etc.)
       console.error('Error fetching projects', error)
     }
   },
