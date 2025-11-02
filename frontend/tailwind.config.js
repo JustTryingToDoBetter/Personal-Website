@@ -1,9 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}',
-  ],
+export default {
+  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{vue,js,ts}'],
   theme: {
     extend: {
       keyframes: {
@@ -14,6 +12,9 @@ module.exports = {
       },
       animation: {
         gradientShift: 'gradientShift 10s ease infinite',
+      },
+      backgroundSize: {
+        '400%': '400% 400%',
       },
     },
   },

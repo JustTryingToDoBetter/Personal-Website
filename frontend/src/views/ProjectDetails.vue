@@ -9,10 +9,7 @@
         {{ project?.description || 'Description coming soon...' }}
       </p>
 
-      <router-link
-        to="/"
-        class="text-blue-600 hover:underline"
-      >
+      <router-link to="/" class="text-blue-600 hover:underline">
         ← Back to Home
       </router-link>
     </div>
@@ -22,7 +19,7 @@
 <script>
 export default {
   name: 'ProjectDetail',
-  props: ['id'],
+  props: { id: { type: [String, Number], required: true } },
   data() {
     return {
       projects: [
@@ -30,7 +27,7 @@ export default {
           id: 1,
           title: 'Neural Pulse',
           description:
-            'Interactive real-time data streams rendered through cyberpunk UI.',
+            'Interactive real-time data streams rendered through a sleek cyberpunk UI.',
         },
         {
           id: 2,
@@ -49,7 +46,8 @@ export default {
   },
   computed: {
     project() {
-      return this.projects.find(p => p.id === Number(this.id))
+      const nid = Number(this.id)
+      return this.projects.find((p) => Number(p.id) === nid)
     },
   },
 }

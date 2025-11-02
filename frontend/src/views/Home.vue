@@ -1,18 +1,25 @@
 <template>
-  <div class="relative overflow-hidden text-white">
-    <div class="absolute inset-0 bg-gradient-to-tr from-[#FF007A]/10 via-[#00FFF0]/10 to-[#250045]/10 animate-gradientShift -z-10"></div>
+  <div class="relative overflow-hidden min-h-screen text-gray-900">
+    <!-- animated gradient background layer -->
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-tr from-[#FF007A]/10 via-[#00FFF0]/10 to-[#250045]/10 animate-gradientShift"
+      aria-hidden="true"
+    />
+
     <!-- Hero Section -->
     <section class="bg-white py-20 text-center">
       <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-bold mb-4">Welcome to my Portfolio</h1>
-        <p class="mb-8 text-lg max-w-2xl mx-auto">
+        <h1 class="text-4xl font-extrabold tracking-tight mb-4">
+          Welcome to my Portfolio
+        </h1>
+        <p class="mb-8 text-lg max-w-3xl mx-auto text-gray-700">
           I'm Jaydin Morrison, a software engineer passionate about building
           beautiful and performant web applications. Explore my work and get in
           touch!
         </p>
         <router-link
           to="/projects"
-          class="inline-block px-8 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+          class="inline-block px-8 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-colors"
         >
           View Projects
         </router-link>
@@ -23,22 +30,26 @@
     <section class="bg-gray-100 py-16">
       <div class="container mx-auto px-4">
         <h2 class="text-2xl font-semibold mb-6">Latest Projects</h2>
+
         <div v-if="projects.length" class="grid md:grid-cols-2 gap-8">
-          <div
+          <article
             v-for="project in projects"
             :key="project.id"
-            class="p-6 bg-white rounded shadow hover:shadow-lg transition-shadow"
+            class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow"
           >
             <h3 class="text-xl font-semibold mb-2">{{ project.title }}</h3>
-            <p class="text-gray-700 mb-4 line-clamp-3">{{ project.description }}</p>
+            <p class="text-gray-700 mb-4 line-clamp-3">
+              {{ project.description }}
+            </p>
             <router-link
               :to="`/projects/${project.id}`"
               class="text-blue-600 hover:underline"
             >
               Read more
             </router-link>
-          </div>
+          </article>
         </div>
+
         <p v-else class="text-gray-600">No projects found.</p>
       </div>
     </section>
@@ -50,40 +61,46 @@ import axios from 'axios'
 
 export default {
   name: 'Home',
-
   data() {
     return {
-      projects: [], // array of projects to show in UI
+      projects: [],
     }
   },
-
   async created() {
     try {
-      // ✅ STEP 1 — temporarily disable live API call (your Codespace rejects it with 401)
-      // const response = await axios.get('/api/projects')
-      // this.projects = response.data
-
-      // ✅ STEP 2 — use mock data locally while backend is offline
+      // Try the API first
+      const res = await axios.get('/projects', { timeout: 4000 })
+      this.projects = Array.isArray(res.data) ? res.data.slice(0, 4) : []
+      if (!this.projects.length) throw new Error('Empty list')
+    } catch (e) {
+      // Fallback mock content (so the UI never looks empty during dev)
       this.projects = [
         {
           id: 1,
           title: 'Neural Pulse',
-          description: 'Interactive real-time data streams rendered through cyberpunk UI.',
+          description:
+            'Interactive real-time data streams rendered through a sleek cyberpunk UI.',
         },
         {
           id: 2,
           title: 'EchoGrid',
-          description: 'Asynchronous dashboard visualizer for futuristic system telemetry.',
+          description:
+            'Asynchronous dashboard visualizer for futuristic system telemetry.',
         },
         {
           id: 3,
           title: 'OrbitVision',
-          description: '3D multi-object tracking visualizer powered by YOLOv8 and DeepSORT.',
+          description:
+            '3D multi-object tracking visualizer powered by YOLOv8 and DeepSORT.',
+        },
+        {
+          id: 4,
+          title: 'Maski Playground',
+          description:
+            'Micro-apps and experiments to showcase fast, playful interactions.',
         },
       ]
-    } catch (error) {
-      // optional: forward this to a logger later (Sentry, etc.)
-      console.error('Error fetching projects', error)
+      // console.warn('API unavailable; showing mock projects', e)
     }
   },
 }

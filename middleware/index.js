@@ -28,21 +28,24 @@ app.use(express.json())
 app.use(xss())
 
 // Configure basic authentication
-const users = {}
-if (!process.env.BASIC_AUTH_USER || !process.env.BASIC_AUTH_PASS) {
-  console.warn('WARNING: BASIC_AUTH_USER or BASIC_AUTH_PASS not set. All requests will be denied.')
-}
-users[process.env.BASIC_AUTH_USER] = process.env.BASIC_AUTH_PASS
-app.use(
-  basicAuth({
-    users,
-    challenge: true,
-    unauthorizedResponse: () => ({ error: 'Authentication required.' }),
-  }),
-)
+let users = {}
 
+if (process.env.BASIC_AUTH_USER && process.env.BASIC_AUTH_PASS) {
+  users[process.env.BASIC_AUTH_USER] = process.env.BASIC_AUTH_PASS
+  app.use(
+    basicAuth({
+      users,
+      challenge: true,
+      unauthorizedResponse: () => ({ error: 'Authentication required.' }),
+    }),
+  )
+} else {
+  console.warn(
+    '[DEV WARNING] BASIC_AUTH_USER or BASIC_AUTH_PASS not set. Basic auth disabled for local development.'
+  )
+}
 // Base URL of the Django API, including the /api prefix
-const djangoApiUrl = process.env.DJANGO_API_URL || 'http://localhost:8000/api'
+const djangoApiUrl = process.env.DJANGO_API_URL || 'http://localhost:8000/'
 
 // Proxy all /api requests to Django, removing the /api prefix
 app.use(

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "Football Player Tracking",
+    "year": "2025",
+    "tech": ["YOLOv8", "DeepSORT", "ByteTrack"],
+    "description": "Comparative analysis of player tracking algorithms in football footage using YOLOv8 for detection and MOT metrics for evaluation.",
+    "image": "/assets/projects/tracking.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Analytics Server",
+    "year": "2025",
+    "tech": ["FastAPI", "Redis", "PostgreSQL"],
+    "description": "Real-time leaderboard and analytics engine for live event data, built with distributed caching and queueing.",
+    "image": "/assets/projects/analytics.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Maski Playground",
+    "year": "2024",
+    "tech": ["Vue", "Node", "Tailwind", "Three.js"],
+    "description": "An experimental cyberpunk-themed portfolio playground that merges code, art, and motion interaction.",
+    "image": "/assets/projects/playground.jpg"
+  },
+  {
+    "id": 4,
+    "title": "File Server",
+    "year": "2024",
+    "tech": ["Flask", "Docker", "SQLite"],
+    "description": "A minimalist drag-and-drop file upload and management interface with local API authentication.",
+    "image": "/assets/projects/fileserver.jpg"
+  }
+]
