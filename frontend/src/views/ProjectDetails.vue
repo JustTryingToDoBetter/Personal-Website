@@ -1,60 +1,84 @@
 <template>
-  <section class="p-10 text-gray-900 bg-white min-h-screen">
-    <div class="max-w-3xl mx-auto">
-      <h1 class="text-3xl font-bold mb-4">
-        {{ project?.title || `Project #${id}` }}
-      </h1>
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <router-link to="/projects" class="text-blue-600 hover:underline">← Back to Projects</router-link>
 
-      <p class="text-gray-700 mb-8 leading-relaxed">
-        {{ project?.description || 'Description coming soon...' }}
-      </p>
-
-      <router-link to="/" class="text-blue-600 hover:underline">
-        ← Back to Home
-      </router-link>
+    <div v-if="loading" class="mt-8 animate-pulse">
+      <div class="h-8 w-1/2 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
+      <div class="h-64 w-full bg-gray-200 dark:bg-gray-700 rounded mb-6"></div>
+      <div class="space-y-3">
+        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
+      </div>
     </div>
-  </section>
+
+    <article v-else-if="project" class="mt-8">
+      <h1 class="text-3xl font-bold mb-2">{{ project.title }}</h1>
+      <p class="text-gray-500 dark:text-gray-400 mb-6" v-if="project.year">{{ project.year }}</p>
+      <img v-if="project.image" :src="project.image" class="w-full max-h-[28rem] object-cover rounded-xl mb-6" alt="" />
+
+      <div class="prose dark:prose-invert max-w-none">
+        <p class="whitespace-pre-line">{{ project.description }}</p>
+      </div>
+
+      <div v-if="project.tech && project.tech.length" class="mt-6 flex flex-wrap gap-2">
+        <span v-for="t in project.tech" :key="t" class="text-xs uppercase tracking-wider px-2 py-1 rounded border border-gray-300 dark:border-gray-700">
+          {{ t }}
+        </span>
+      </div>
+    </article>
+
+    <p v-else class="mt-8 text-gray-600 dark:text-gray-300">Project not found.</p>
+  </div>
+  
 </template>
 
-<script>
-export default {
-  name: 'ProjectDetail',
-  props: { id: { type: [String, Number], required: true } },
-  data() {
-    return {
-      projects: [
-        {
-          id: 1,
-          title: 'Neural Pulse',
-          description:
-            'Interactive real-time data streams rendered through a sleek cyberpunk UI.',
-        },
-        {
-          id: 2,
-          title: 'EchoGrid',
-          description:
-            'Asynchronous dashboard visualizer for futuristic system telemetry.',
-        },
-        {
-          id: 3,
-          title: 'OrbitVision',
-          description:
-            '3D multi-object tracking visualizer powered by YOLOv8 and DeepSORT.',
-        },
-      ],
-    }
-  },
-  computed: {
-    project() {
-      const nid = Number(this.id)
-      return this.projects.find((p) => Number(p.id) === nid)
-    },
-  },
-}
-</script>
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import axios from 'axios'
 
-<style scoped>
-section {
-  transition: all 0.3s ease;
+const route = useRoute()
+const loading = ref(true)
+const project = ref(null)
+
+async function loadProject(id) {
+  loading.value = true
+  project.value = null
+  // Try API first
+  try {
+    const res = await axios.get(`/api/projects/${id}`)
+    const p = res.data
+    project.value = {
+      id: p.id,
+      title: p.title,
+      description: p.description,
+      image: p.image_url || '',
+      year: p.created_at ? new Date(p.created_at).getFullYear() : '',
+      tech: [],
+    }
+  } catch (err) {
+    // Fallback to local projects.json
+    try {
+      const res = await axios.get('/src/data/projects.json')
+      const found = Array.isArray(res.data) ? res.data.find((x) => String(x.id) === String(id)) : null
+      if (found) project.value = found
+    } catch (e) {
+      // ignore; project remains null
+    }
+  } finally {
+    loading.value = false
+  }
 }
-</style>
+
+onMounted(() => {
+  loadProject(route.params.id)
+})
+
+watch(
+  () => route.params.id,
+  (newId) => {
+    if (newId) loadProject(newId)
+  }
+)
+</script>

@@ -5,7 +5,8 @@
     "year": "2025",
     "tech": ["YOLOv8", "DeepSORT", "ByteTrack"],
     "description": "Comparative analysis of player tracking algorithms in football footage using YOLOv8 for detection and MOT metrics for evaluation.",
-    "image": "/assets/projects/tracking.jpg"
+    "image": "/assets/projects/tracking.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/football-tracking"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "year": "2025",
     "tech": ["FastAPI", "Redis", "PostgreSQL"],
     "description": "Real-time leaderboard and analytics engine for live event data, built with distributed caching and queueing.",
-    "image": "/assets/projects/analytics.jpg"
+    "image": "/assets/projects/analytics.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/analytics-server"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "year": "2024",
     "tech": ["Vue", "Node", "Tailwind", "Three.js"],
     "description": "An experimental cyberpunk-themed portfolio playground that merges code, art, and motion interaction.",
-    "image": "/assets/projects/playground.jpg"
+    "image": "/assets/projects/playground.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/maski-playground"
   },
   {
     "id": 4,
@@ -29,6 +32,7 @@
     "year": "2024",
     "tech": ["Flask", "Docker", "SQLite"],
     "description": "A minimalist drag-and-drop file upload and management interface with local API authentication.",
-    "image": "/assets/projects/fileserver.jpg"
+    "image": "/assets/projects/fileserver.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/file-server"
   }
 ]

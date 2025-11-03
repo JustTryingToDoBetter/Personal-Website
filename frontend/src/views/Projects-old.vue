@@ -10,13 +10,11 @@
     <!-- Stars background -->
     <div class="absolute inset-0 z-2">
       <div v-for="i in 100" :key="i" 
-           class="star absolute w-1 h-1 bg-white rounded-full animate-pulse"
+           class="absolute w-1 h-1 bg-white rounded-full animate-pulse"
            :style="{ 
              left: Math.random() * 100 + '%', 
              top: Math.random() * 100 + '%',
-             animationDelay: Math.random() * 3 + 's',
-             opacity: 0.3 + Math.random() * 0.7,
-             transform: `scale(${0.5 + Math.random() * 1.5})`
+             animationDelay: Math.random() * 3 + 's'
            }">
       </div>
     </div>
@@ -26,7 +24,7 @@
       <div class="relative w-[800px] h-[800px] max-w-[90vmin] max-h-[90vmin]">
         
         <!-- Central Sun/Logo -->
-        <div class="central-sun absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-r from-orange-400 to-yellow-300 shadow-[0_0_60px_#fbbf24] animate-pulse z-20">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-r from-orange-400 to-yellow-300 shadow-[0_0_60px_#fbbf24] animate-pulse z-20">
           <div class="w-full h-full rounded-full bg-gradient-to-tr from-yellow-200 to-orange-500 animate-spin" style="animation-duration: 20s;"></div>
         </div>
 
@@ -40,35 +38,28 @@
           <!-- Orbit Ring -->
           <div class="orbit-ring absolute inset-0 border border-cyan-400/20 rounded-full"></div>
           
-          <!-- Planet Container - this is what rotates -->
-          <div class="absolute inset-0 animate-spin" :style="{ animationDuration: `${20 + index * 10}s` }">
-            <!-- Planet - positioned on the orbit edge -->
-            <div
-              class="planet absolute w-16 h-16 rounded-full cursor-pointer transition-all duration-300 hover:scale-125 hover:shadow-[0_0_30px_currentColor]"
-              :class="getPlanetClass(index)"
-              :style="getPlanetStyle(index)"
-              @mouseenter="(e) => handlePlanetHover(e, project)"
-              @mouseleave="handlePlanetLeave"
-              @mousemove="updateMousePosition"
-              @click="selectedProject = project"
-            >
-              <!-- Planet surface details -->
-              <div class="w-full h-full rounded-full opacity-60 bg-gradient-to-br from-white/20 to-transparent"></div>
-              <div class="absolute top-2 left-2 w-2 h-2 bg-white/30 rounded-full"></div>
-              <div class="absolute bottom-3 right-3 w-1 h-1 bg-white/20 rounded-full"></div>
-            </div>
+          <!-- Planet -->
+          <div
+            class="planet absolute w-16 h-16 rounded-full cursor-pointer transition-all duration-300 hover:scale-125 hover:shadow-[0_0_30px_currentColor]"
+            :class="getPlanetClass(index)"
+            :style="getPlanetStyle(index)"
+            @mouseenter="hoveredProject = project"
+            @mouseleave="hoveredProject = null"
+            @click="selectedProject = project"
+          >
+            <!-- Planet surface details -->
+            <div class="w-full h-full rounded-full opacity-60 bg-gradient-to-br from-white/20 to-transparent"></div>
+            <div class="absolute top-2 left-2 w-2 h-2 bg-white/30 rounded-full"></div>
+            <div class="absolute bottom-3 right-3 w-1 h-1 bg-white/20 rounded-full"></div>
           </div>
         </div>
 
         <!-- Hover Tooltip -->
         <div
           v-if="hoveredProject"
-          class="tooltip fixed z-50 bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-xl border border-cyan-400/30 shadow-[0_0_25px_#00fff066] max-w-xs pointer-events-none transition-all duration-200"
+          class="fixed z-50 bg-gray-900/95 backdrop-blur-md text-white p-4 rounded-xl border border-cyan-400/30 shadow-[0_0_25px_#00fff066] max-w-xs pointer-events-none"
           :style="tooltipStyle"
         >
-          <!-- Arrow pointer -->
-          <div class="absolute -bottom-1 left-4 w-2 h-2 bg-gray-900 border-r border-b border-cyan-400/30 transform rotate-45"></div>
-          
           <h3 class="text-lg font-orbitron text-cyan-300 mb-2">{{ hoveredProject.title }}</h3>
           <p class="text-sm text-gray-300 mb-2">{{ hoveredProject.year }}</p>
           <div class="flex flex-wrap gap-1 mb-2">
@@ -78,7 +69,6 @@
             </span>
           </div>
           <p class="text-xs text-gray-400 line-clamp-3">{{ hoveredProject.description }}</p>
-          <p class="text-xs text-cyan-400 mt-2">Click to view details</p>
         </div>
       </div>
     </div>
@@ -90,7 +80,7 @@
       @click="selectedProject = null"
     >
       <div
-        class="project-modal bg-gray-900/95 backdrop-blur-xl text-white p-8 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_#00fff033] max-w-2xl max-h-[80vh] overflow-y-auto m-4"
+        class="bg-gray-900/95 backdrop-blur-xl text-white p-8 rounded-2xl border border-cyan-400/30 shadow-[0_0_50px_#00fff033] max-w-2xl max-h-[80vh] overflow-y-auto m-4"
         @click.stop
       >
         <div class="flex justify-between items-start mb-6">
@@ -153,7 +143,6 @@ const vantaRef = ref(null)
 const projects = ref([])
 const hoveredProject = ref(null)
 const selectedProject = ref(null)
-const mousePosition = ref({ x: 0, y: 0 })
 let vantaEffect = null
 
 // Planet colors and styles
@@ -168,7 +157,7 @@ const planetColors = [
 
 function getOrbitStyle(index) {
   const radius = 120 + (index * 80) // Increasing orbit radius
-  const animationDuration = 100 + (index * 2) // Different speeds
+  const animationDuration = 20 + (index * 10) // Different speeds
   return {
     width: `${radius * 2}px`,
     height: `${radius * 2}px`,
@@ -184,64 +173,23 @@ function getPlanetClass(index) {
 }
 
 function getPlanetStyle(index) {
+  const angle = (index * 72) * (Math.PI / 180) // 72 degrees apart
+  const radius = 120 + (index * 80)
   return {
-    top: '50%',
-    right: '-32px', // Half the planet width (16*4/2 = 32px) to center on orbit edge
-    transform: 'translateY(-50%)',
-  }
-}
-
-function handlePlanetHover(event, project) {
-  hoveredProject.value = project
-  updateMousePosition(event)
-}
-
-function handlePlanetLeave() {
-  hoveredProject.value = null
-}
-
-function updateMousePosition(event) {
-  mousePosition.value = {
-    x: event.clientX,
-    y: event.clientY
+    top: `${50 + Math.sin(angle) * (radius / 400) * 100}%`,
+    left: `${50 + Math.cos(angle) * (radius / 400) * 100}%`,
+    transform: 'translate(-50%, -50%)',
   }
 }
 
 const tooltipStyle = computed(() => {
-  const offset = 20
-  let left = mousePosition.value.x + offset
-  let top = mousePosition.value.y - offset
-  
-  // Prevent tooltip from going off-screen
-  if (left + 300 > window.innerWidth) { // 300px is approximate tooltip width
-    left = mousePosition.value.x - 320
-  }
-  if (top < 0) {
-    top = mousePosition.value.y + offset
-  }
-  
   return {
-    left: `${left}px`,
-    top: `${top}px`,
+    left: '20px',
+    top: '20px',
   }
 })
 
 onMounted(async () => {
-  // Add global mouse tracking
-  const handleGlobalMouseMove = (event) => {
-    if (hoveredProject.value) {
-      updateMousePosition(event)
-    }
-  }
-  
-  document.addEventListener('mousemove', handleGlobalMouseMove)
-  
-  // Store the cleanup function
-  onBeforeUnmount(() => {
-    document.removeEventListener('mousemove', handleGlobalMouseMove)
-    if (vantaEffect) vantaEffect.destroy()
-  })
-
   // Dynamic background load
   const loadScript = (src) =>
     new Promise((resolve) => {
@@ -292,138 +240,93 @@ onMounted(async () => {
     }
   }
 })
+
+onBeforeUnmount(() => {
+  if (vantaEffect) vantaEffect.destroy()
+})
+</script>
+    points: 10.0,
+    maxDistance: 20.0,
+    spacing: 18.0,
+    showDots: true,
+    mouseControls: true,
+    scale: 1.0,
+    scaleMobile: 1.0,
+  })
+
+  // Try API first; fall back to local projects.json for dev/demo
+  try {
+    const api = await axios.get('/api/projects')
+    if (Array.isArray(api.data) && api.data.length) {
+      projects.value = api.data.map(p => ({
+        id: p.id,
+        title: p.title,
+        year: new Date(p.created_at).getFullYear(),
+        tech: [],
+        image: p.image_url || '',
+        description: p.description,
+      }))
+    } else {
+      throw new Error('Empty API response')
+    }
+  } catch (err) {
+    try {
+      const response = await axios.get('/src/data/projects.json')
+      projects.value = response.data
+    } catch (fallbackErr) {
+      console.error('Error loading projects:', fallbackErr)
+    }
+  }
+
+  await nextTick()
+  revealOnScroll()
+  animateCursor()
+})
+
+function revealOnScroll() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0')
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.3 }
+  )
+  document.querySelectorAll('.project-card').forEach((el) => observer.observe(el))
+}
+
+function animateCursor() {
+  const halo = document.getElementById('cursor-halo')
+  document.addEventListener('mousemove', (e) => {
+    if (!halo) return
+    halo.style.left = `${e.clientX - halo.offsetWidth / 2}px`
+    halo.style.top = `${e.clientY - halo.offsetHeight / 2}px`
+  })
+}
+
+onBeforeUnmount(() => {
+  if (vantaEffect) vantaEffect.destroy()
+})
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-/* 3D Orbital Animation */
-@keyframes orbit {
-  from {
-    transform: translate(-50%, -50%) rotateZ(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotateZ(360deg);
-  }
-}
-
-/* Planet counter-rotation to keep upright */
-@keyframes counter-rotate {
-  from {
-    transform: translate(-50%, -50%) rotateZ(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotateZ(-360deg);
-  }
-}
-
-/* 3D perspective and depth */
-.planet-orbit {
-  perspective: 1000px;
+.project-card {
+  will-change: transform, opacity;
   transform-style: preserve-3d;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.planet {
-  box-shadow: 
-    inset -10px -10px 20px rgba(0,0,0,0.3),
-    inset 10px 10px 20px rgba(255,255,255,0.1),
-    0 0 20px rgba(0,255,240,0.3);
-  transform-style: preserve-3d;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* gradient hue rotation */
+@keyframes gradientShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
+.animate-gradientShift { animation: gradientShift 40s linear infinite; }
 
-.planet:hover {
-  transform: translate(-50%, -50%) scale(1.3) rotateY(15deg);
-  box-shadow: 
-    inset -15px -15px 30px rgba(0,0,0,0.4),
-    inset 15px 15px 30px rgba(255,255,255,0.2),
-    0 0 40px currentColor,
-    0 0 80px rgba(0,255,240,0.4);
-}
-
-/* Orbit rings with 3D effect */
-.orbit-ring {
-  border: 1px solid rgba(0, 255, 240, 0.2);
-  box-shadow: 
-    0 0 10px rgba(0, 255, 240, 0.1),
-    inset 0 0 10px rgba(0, 255, 240, 0.05);
-}
-
-/* Central sun 3D effect */
-.central-sun {
-  box-shadow: 
-    0 0 60px #fbbf24,
-    0 0 120px rgba(251, 191, 36, 0.5),
-    inset -10px -10px 20px rgba(0,0,0,0.2);
-  transform-style: preserve-3d;
-}
-
-/* Stars with depth */
-.star {
-  border-radius: 50%;
-  box-shadow: 0 0 6px currentColor;
-}
-
-/* Enhanced tooltip */
-.tooltip {
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 255, 240, 0.3);
-  box-shadow: 
-    0 0 25px rgba(0, 255, 240, 0.2),
-    0 20px 40px rgba(0,0,0,0.4);
-}
-
-/* Modal 3D effect */
-.project-modal {
-  transform-style: preserve-3d;
-  animation: modalAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes modalAppear {
-  from {
-    opacity: 0;
-    transform: perspective(1000px) rotateX(-15deg) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: perspective(1000px) rotateX(0deg) scale(1);
-  }
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* Additional 3D depth for planets */
-.planet::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  width: 30%;
-  height: 30%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent);
-  border-radius: 50%;
-  filter: blur(2px);
-}
-
-.planet::after {
-  content: '';
-  position: absolute;
-  bottom: 15%;
-  right: 20%;
-  width: 15%;
-  height: 15%;
-  background: rgba(0,0,0,0.3);
-  border-radius: 50%;
-  filter: blur(1px);
-}
+html { scroll-behavior: smooth; }
 </style>
