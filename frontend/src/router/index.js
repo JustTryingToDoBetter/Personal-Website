@@ -5,6 +5,7 @@ import Contact from '@/views/Contact.vue'
 import Home from '../views/Home.vue'
 import NotFound from '@/views/NotFound.vue'
 import ProjectDetails from '@/views/ProjectDetails.vue'
+import ProjectsGallery from '@/views/ProjectsGallery.vue'
 
 const routes = [
   {
@@ -12,7 +13,8 @@ const routes = [
     component: MainLayout,
     children: [
       { path: '', name: 'Home', component: Home },
-      { path: 'projects', name: 'Projects', component: ProjectDetails },
+      { path: 'projects', name: 'Projects', component: ProjectsGallery },
+      { path: 'projects/:id', name: 'ProjectDetails', component: ProjectDetails },
       { path: 'about', name: 'About', component: About },
       { path: 'contact', name: 'Contact', component: Contact },
       { path: ':pathMatch(.*)*', name: 'NotFound', component: NotFound },
