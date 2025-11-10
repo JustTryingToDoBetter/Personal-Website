@@ -6,7 +6,8 @@
     "tech": ["YOLOv8", "DeepSORT", "ByteTrack"],
     "description": "Comparative analysis of player tracking algorithms in football footage using YOLOv8 for detection and MOT metrics for evaluation.",
     "image": "/assets/projects/tracking.jpg",
-    "github": "https://github.com/JustTryingToDoBetter/football-tracking"
+    "github": "https://github.com/JustTryingToDoBetter/football-tracking",
+    "planetType": "rocky"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "tech": ["FastAPI", "Redis", "PostgreSQL"],
     "description": "Real-time leaderboard and analytics engine for live event data, built with distributed caching and queueing.",
     "image": "/assets/projects/analytics.jpg",
-    "github": "https://github.com/JustTryingToDoBetter/analytics-server"
+    "github": "https://github.com/JustTryingToDoBetter/analytics-server",
+    "planetType": "oceanic"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "tech": ["Vue", "Node", "Tailwind", "Three.js"],
     "description": "An experimental cyberpunk-themed portfolio playground that merges code, art, and motion interaction.",
     "image": "/assets/projects/playground.jpg",
-    "github": "https://github.com/JustTryingToDoBetter/maski-playground"
+    "github": "https://github.com/JustTryingToDoBetter/maski-playground",
+    "planetType": "gas-giant"
   },
   {
     "id": 4,
@@ -33,6 +36,67 @@
     "tech": ["Flask", "Docker", "SQLite"],
     "description": "A minimalist drag-and-drop file upload and management interface with local API authentication.",
     "image": "/assets/projects/fileserver.jpg",
-    "github": "https://github.com/JustTryingToDoBetter/file-server"
+    "github": "https://github.com/JustTryingToDoBetter/file-server",
+    "planetType": "desert"
+  },
+  {
+    "id": 5,
+    "title": "AI Chat Assistant",
+    "year": "2025",
+    "tech": ["OpenAI", "LangChain", "React"],
+    "description": "Conversational AI assistant with context awareness, memory, and multi-turn dialogue capabilities.",
+    "image": "/assets/projects/ai-chat.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/ai-assistant",
+    "planetType": "ice"
+  },
+  {
+    "id": 6,
+    "title": "E-Commerce Platform",
+    "year": "2024",
+    "tech": ["Next.js", "Stripe", "MongoDB"],
+    "description": "Full-stack e-commerce solution with payment processing, inventory management, and analytics dashboard.",
+    "image": "/assets/projects/ecommerce.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/shop-platform",
+    "planetType": "volcanic"
+  },
+  {
+    "id": 7,
+    "title": "Weather Forecast App",
+    "year": "2024",
+    "tech": ["React Native", "OpenWeather", "Redux"],
+    "description": "Mobile weather application with hourly and daily forecasts, severe weather alerts, and interactive maps.",
+    "image": "/assets/projects/weather.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/weather-app",
+    "planetType": "storm"
+  },
+  {
+    "id": 8,
+    "title": "Music Streaming Player",
+    "year": "2023",
+    "tech": ["Vue", "Howler.js", "Firebase"],
+    "description": "Web-based music player with playlist management, audio visualization, and social sharing features.",
+    "image": "/assets/projects/music.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/music-player",
+    "planetType": "neon"
+  },
+  {
+    "id": 9,
+    "title": "Task Management System",
+    "year": "2023",
+    "tech": ["Django", "PostgreSQL", "Celery"],
+    "description": "Enterprise task tracking with Kanban boards, time tracking, team collaboration, and reporting.",
+    "image": "/assets/projects/tasks.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/task-manager",
+    "planetType": "crystal"
+  },
+  {
+    "id": 10,
+    "title": "Portfolio V2",
+    "year": "2025",
+    "tech": ["Vue", "Three.js", "TailwindCSS"],
+    "description": "Interactive 3D portfolio showcasing projects as planets in an immersive cosmic environment.",
+    "image": "/assets/projects/portfolio.jpg",
+    "github": "https://github.com/JustTryingToDoBetter/Personal-Website",
+    "planetType": "earth-like"
   }
 ]
