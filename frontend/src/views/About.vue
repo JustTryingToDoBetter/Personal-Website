@@ -390,27 +390,36 @@ const skills = ref({
 // Timeline Data
 const timeline = ref([
   {
-    title: 'Software Development Intern',
+    title: 'Learning Developer Intern',
     organization: 'Maskew Miller Learning',
-    period: '2024 - Present',
+    period: '2025, October - Present',
     description: 'Developing innovative educational software solutions, contributing to full-stack web applications, and exploring AI/ML integration for enhanced learning experiences.',
     tags: ['Vue.js', 'Django', 'Python', 'Educational Tech'],
     color: 'bg-purple-500',
     borderColor: 'border-purple-500',
   },
   {
-    title: 'Freelance Web Developer',
+    title: 'IT Intern',
+    organization: 'Maskew Miller Learning',
+    period: '2025, June - October',
+    description: 'As an IT Intern, I assisted in maintaining the company\'s IT infrastructure, provided technical support',
+    tags: ['Technical Support', 'Networking', 'System Administration', 'Helpdesk'],
+    color: 'bg-purple-500',
+    borderColor: 'border-purple-500',
+  },
+  {
+    title: 'Freelance Mathematics Tutor',
     organization: 'Self-Employed',
-    period: '2023 - 2024',
-    description: 'Built responsive websites for small businesses, focusing on modern design, performance optimization, and client satisfaction. Specialized in Vue.js and Django full-stack solutions.',
-    tags: ['Vue.js', 'Tailwind', 'Django', 'Freelance'],
+    period: '2023 - Present',
+    description: 'Provided personalized tutoring in mathematics, helping students improve their understanding and performance in the subject.',
+    tags: ['Mathematics', 'Tutoring', 'Freelance'],
     color: 'bg-cyan-500',
     borderColor: 'border-cyan-500',
   },
   {
     title: 'Personal Projects & Learning',
     organization: 'Independent Study',
-    period: '2022 - 2023',
+    period: '2024 - Present',
     description: 'Dove deep into machine learning, computer vision, and 3D web graphics. Built projects including football player tracking with YOLOv8 and interactive 3D visualizations.',
     tags: ['Machine Learning', 'Three.js', 'YOLOv8', 'Self-Learning'],
     color: 'bg-pink-500',
@@ -422,21 +431,21 @@ const timeline = ref([
 const education = ref([
   {
     title: 'Bachelor of Science in Computer Science',
-    institution: 'University Name',
-    period: '2020 - 2024',
+    institution: 'University of the Western Cape',
+    period: '2022 - 2024',
     description: 'Focused on software engineering, machine learning, and web development. Active in coding clubs and hackathons.',
   },
   {
-    title: 'Machine Learning Specialization',
-    institution: 'Coursera / Stanford University',
+    title: 'Full-Stack Web Development Bootcamp',
+    institution: 'Udemy',
     period: '2023',
-    description: 'Comprehensive course covering supervised learning, unsupervised learning, and best practices in ML.',
+    description: 'Intensive bootcamp covering MERN stack development, RESTful APIs, and deployment strategies.',
   },
   {
-    title: 'Advanced Web Development',
-    institution: 'Online Courses & Self-Study',
-    period: '2022 - 2023',
-    description: 'Mastered modern web frameworks including Vue.js, React, and Three.js for 3D web experiences.',
+    title: 'Bachelor of Honours in Computer Science',
+    institution: 'University of the Western Cape',
+    period: '2025 (Expected)',
+    description: 'Specializing in advanced machine learning techniques and research methodologies.',
   },
 ])
 
@@ -462,38 +471,26 @@ const achievements = ref([
   {
     title: 'Football Player Tracking',
     icon: '⚽',
-    year: '2024',
+    year: '2025',
     description: 'Built advanced player tracking system using YOLOv8 with high accuracy.',
   },
   {
     title: 'Intern at 21',
     icon: '💼',
-    year: '2024',
-    description: 'Secured software development internship at Maskew Miller Learning.',
-  },
-  {
-    title: '3D Portfolio Pioneer',
-    icon: '🌌',
-    year: '2024',
-    description: 'Created immersive cosmic-themed portfolio with Three.js.',
-  },
-  {
-    title: 'Full-Stack Developer',
-    icon: '🚀',
-    year: '2023',
-    description: 'Mastered Vue.js, Django, and modern web development stack.',
-  },
-  {
-    title: 'Open Source Contributor',
-    icon: '💻',
-    year: '2023',
-    description: 'Active contributor to open-source projects on GitHub.',
+    year: '2025',
+    description: 'Secured an internship at Maskew Miller Learning.',
   },
   {
     title: 'Continuous Learner',
     icon: '📚',
     year: 'Ongoing',
     description: 'Always exploring new technologies and expanding skillset.',
+  },
+  {
+    title: 'Dirisa Datathon',
+    icon: '🏆',
+    year: '2024',
+    description: 'Achieved top 10 placement in the Dirisa Datathon competition.',
   },
 ])
 
