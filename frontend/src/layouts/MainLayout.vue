@@ -81,6 +81,7 @@ const navItems = [
   { label: 'Projects', to: '/projects' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Blog', to: '/blog' }
 ]
 
 function toggleTheme() {
