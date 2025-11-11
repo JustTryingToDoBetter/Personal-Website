@@ -367,11 +367,10 @@ export default {
   data() {
     return {
       projects: [],
-      currentRole: 'Full-Stack Developer',
+      currentRole: 'Learning Developer',
       roles: [
-        'Full-Stack Developer',
-        'AI/ML Enthusiast',
-        '3D Web Craftsman',
+        'Learning Developer',
+        'Cybersecurity Enthusiast',
         'Problem Solver',
         'Creative Coder',
         'Tech Explorer'
