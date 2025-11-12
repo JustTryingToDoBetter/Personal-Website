@@ -61,11 +61,11 @@
 
     <!-- animated route outlet -->
     <main class="pt-28">
-    <router-view v-slot="{ Component }">
+      <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
-        <component :is="Component" />
+          <component :is="Component" :key="route.path" />
         </transition>
-    </router-view>
+      </router-view>
     </main>
 
   </div>
@@ -73,15 +73,19 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const isDark = ref(document.documentElement.classList.contains('dark'))
 
 const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Projects', to: '/projects' },
+  { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Research', to: '/research' },
   { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' },
-  { label: 'Blog', to: '/blog' }
+  { label: 'Blog', to: '/blog' },
+  { label: 'Contact', to: '/contact' }
 ]
 
 function toggleTheme() {

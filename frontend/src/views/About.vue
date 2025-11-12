@@ -23,13 +23,13 @@
             Jaydin Morrison
           </h1>
           <p class="text-xl md:text-2xl mb-6 text-purple-100">
-            Full-Stack Developer & AI Enthusiast
+            Junior Software Developer | BSc Computer Science | Honours Student
           </p>
           
           <!-- Professional Summary -->
           <div class="max-w-2xl mx-auto mb-8 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
             <p class="text-lg leading-relaxed">
-              Hey Hey Hey! I'm a 22-year-old learning developer intern at Maskew Miller Learning, passionate about building innovative web experiences and exploring the frontiers of emerging technologies. From 3D visualizations to machine learning, I transform ideas into reality through clean, creative code.
+              An energetic and detail-oriented Computer Science graduate (BSc) and current Honours student from Cape Town, proficient in Python, C#, and modern web technologies. Seeking opportunities to apply strong problem-solving skills, quick learning ability, and academic knowledge to contribute to innovative software solutions.
             </p>
           </div>
 
@@ -79,7 +79,7 @@
           My technical universe, organized by domain
         </p>
 
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Frontend -->
           <div class="skill-category group">
             <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-cyan-400">
@@ -128,7 +128,31 @@
             </div>
           </div>
 
-          <!-- AI/ML -->
+          <!-- Databases -->
+          <div class="skill-category group">
+            <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-blue-400">
+              <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 dark:text-white">Databases</h3>
+              <div class="space-y-3">
+                <div v-for="skill in skills.databases" :key="skill.name">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium dark:text-gray-300">{{ skill.name }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ skill.level }}%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full transition-all duration-1000 skill-bar"
+                         :style="{ width: skill.level + '%' }"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Machine Learning -->
           <div class="skill-category group">
             <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-purple-400">
               <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -136,9 +160,9 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                 </svg>
               </div>
-              <h3 class="text-xl font-bold mb-4 dark:text-white">AI & ML</h3>
+              <h3 class="text-xl font-bold mb-4 dark:text-white">Machine Learning</h3>
               <div class="space-y-3">
-                <div v-for="skill in skills.aiml" :key="skill.name">
+                <div v-for="skill in skills.ml" :key="skill.name">
                   <div class="flex justify-between mb-1">
                     <span class="text-sm font-medium dark:text-gray-300">{{ skill.name }}</span>
                     <span class="text-sm text-gray-600 dark:text-gray-400">{{ skill.level }}%</span>
@@ -152,7 +176,7 @@
             </div>
           </div>
 
-          <!-- DevOps & Tools -->
+          <!-- Tools & Frameworks -->
           <div class="skill-category group">
             <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-orange-400">
               <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -161,9 +185,9 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </div>
-              <h3 class="text-xl font-bold mb-4 dark:text-white">DevOps & Tools</h3>
+              <h3 class="text-xl font-bold mb-4 dark:text-white">Tools & Frameworks</h3>
               <div class="space-y-3">
-                <div v-for="skill in skills.devops" :key="skill.name">
+                <div v-for="skill in skills.tools" :key="skill.name">
                   <div class="flex justify-between mb-1">
                     <span class="text-sm font-medium dark:text-gray-300">{{ skill.name }}</span>
                     <span class="text-sm text-gray-600 dark:text-gray-400">{{ skill.level }}%</span>
@@ -358,139 +382,139 @@ import { ref, onMounted } from 'vue'
 // Skills Data
 const skills = ref({
   frontend: [
-    { name: 'Vue.js', level: 90 },
-    { name: 'JavaScript', level: 85 },
-    { name: 'Three.js', level: 80 },
     { name: 'HTML/CSS', level: 90 },
-    { name: 'Tailwind CSS', level: 85 },
+    { name: 'JavaScript', level: 85 },
+    { name: 'React', level: 75 },
+    { name: 'Vue.js', level: 70 },
+    { name: 'RESTful APIs', level: 80 },
   ],
   backend: [
-    { name: 'Python', level: 85 },
-    { name: 'Django', level: 80 },
-    { name: 'FastAPI', level: 75 },
-    { name: 'Node.js', level: 70 },
+    { name: 'Python', level: 90 },
+    { name: 'C#', level: 85 },
+    { name: 'ASP.NET', level: 75 },
+    { name: 'Flask', level: 80 },
+    { name: 'Socket.io', level: 70 },
+  ],
+  databases: [
     { name: 'PostgreSQL', level: 75 },
+    { name: 'MS Access', level: 70 },
+    { name: 'SQL', level: 75 },
   ],
-  aiml: [
-    { name: 'YOLOv8', level: 80 },
-    { name: 'TensorFlow', level: 70 },
-    { name: 'OpenCV', level: 75 },
-    { name: 'Pandas', level: 80 },
-    { name: 'NumPy', level: 80 },
+  ml: [
+    { name: 'Python (ML)', level: 85 },
+    { name: 'OpenCV', level: 80 },
+    { name: 'DeepSORT', level: 75 },
+    { name: 'ByteTrack', level: 70 },
   ],
-  devops: [
+  tools: [
     { name: 'Git', level: 85 },
-    { name: 'Docker', level: 70 },
-    { name: 'Heroku', level: 75 },
-    { name: 'GitHub Actions', level: 75 },
-    { name: 'Linux', level: 80 },
+    { name: 'Agile', level: 75 },
+    { name: 'Unity (C#)', level: 70 },
+    { name: '3Ds Max', level: 60 },
+    { name: 'AR/VR', level: 65 },
   ],
 })
 
 // Timeline Data
 const timeline = ref([
   {
-    title: 'Learning Developer Intern',
-    organization: 'Maskew Miller Learning',
-    period: '2025, October - Present',
-    description: 'Developing innovative educational software solutions, contributing to full-stack web applications, and exploring AI/ML integration for enhanced learning experiences.',
-    tags: ['Vue.js', 'Django', 'Python', 'Educational Tech'],
-    color: 'bg-purple-500',
-    borderColor: 'border-purple-500',
-  },
-  {
-    title: 'IT Intern',
-    organization: 'Maskew Miller Learning',
-    period: '2025, June - October',
-    description: 'As an IT Intern, I assisted in maintaining the company\'s IT infrastructure, provided technical support',
-    tags: ['Technical Support', 'Networking', 'System Administration', 'Helpdesk'],
-    color: 'bg-purple-500',
-    borderColor: 'border-purple-500',
-  },
-  {
-    title: 'Freelance Mathematics Tutor',
-    organization: 'Self-Employed',
-    period: '2023 - Present',
-    description: 'Provided personalized tutoring in mathematics, helping students improve their understanding and performance in the subject.',
-    tags: ['Mathematics', 'Tutoring', 'Freelance'],
+    title: 'Private Mathematics Tutor',
+    organization: 'Self-Employed, Cape Town',
+    period: 'January 2024 - Present',
+    description: 'Providing personalized tutoring for Grade 8-12 students. Planning and organizing tailored lessons, conducting online sessions via Google Meets, giving feedback to parents/students, assisting with exams and homework, and applying latest teaching techniques to ensure effective knowledge transfer.',
+    tags: ['Teaching', 'Mathematics', 'Communication', 'Google Meets'],
     color: 'bg-cyan-500',
     borderColor: 'border-cyan-500',
   },
   {
-    title: 'Personal Projects & Learning',
-    organization: 'Independent Study',
-    period: '2024 - Present',
-    description: 'Dove deep into machine learning, computer vision, and 3D web graphics. Built projects including football player tracking with YOLOv8 and interactive 3D visualizations.',
-    tags: ['Machine Learning', 'Three.js', 'YOLOv8', 'Self-Learning'],
-    color: 'bg-pink-500',
-    borderColor: 'border-pink-500',
+    title: 'Mathematics Tutor',
+    organization: 'Numeric, Observatory',
+    period: 'April 2023 - November 2024',
+    description: 'Tutored a class of Grade 7 students. Structured lesson plans according to curriculum, sent lesson plans to program manager, ensured learner safety during after-school sessions, processed test results, and captured session data including attendance and behavior.',
+    tags: ['Mathematics', 'Lesson Planning', 'Data Capture'],
+    color: 'bg-purple-500',
+    borderColor: 'border-purple-500',
+  },
+  {
+    title: 'Garden Volunteer',
+    organization: 'SEED, Rocklands Primary School',
+    period: 'February 2017 - November 2021',
+    description: 'Tended the school garden with daily maintenance tasks including weeding, plant bed maintenance, and planting vegetable seeds to ensure proper growth of vegetation.',
+    tags: ['Community Service', 'Environmental Care'],
+    color: 'bg-green-500',
+    borderColor: 'border-green-500',
   },
 ])
 
 // Education Data
 const education = ref([
   {
+    title: 'BSc Honours in Computer Science',
+    institution: 'University of the Western Cape',
+    period: '2025 (Current)',
+    description: 'Coursework: Intro to AR and VR, Artificial Intelligence, Intro to 3Ds Max. Exploring advanced topics in computer graphics and artificial intelligence.',
+  },
+  {
     title: 'Bachelor of Science in Computer Science',
     institution: 'University of the Western Cape',
     period: '2022 - 2024',
-    description: 'Focused on software engineering, machine learning, and web development. Active in coding clubs and hackathons.',
+    description: 'Completed coursework in Business Analysis, Project Management, Databases, Networking, Machine Learning, Software Engineering, and Operating Systems.',
   },
   {
-    title: 'Full-Stack Web Development Bootcamp',
+    title: 'Web Development BootCamp',
     institution: 'Udemy',
-    period: '2023',
-    description: 'Intensive bootcamp covering MERN stack development, RESTful APIs, and deployment strategies.',
+    period: '2024',
+    description: 'Modules: HTML, CSS, JavaScript, APIs, Git. Comprehensive training in modern web development practices.',
   },
   {
-    title: 'Bachelor of Honours in Computer Science',
-    institution: 'University of the Western Cape',
-    period: '2025 (Expected)',
-    description: 'Specializing in advanced machine learning techniques and research methodologies.',
+    title: 'Grade 12 / Matric',
+    institution: 'Mondale High School',
+    period: '2021',
+    description: 'Subjects: English HL, Afrikaans FAL, Pure Mathematics, Accounting, Life Sciences, Physical Science.',
   },
 ])
 
 // Languages
 const languages = ref([
   { name: 'English', level: 'Native', percentage: 100 },
-  { name: 'Japanese (日本語)', level: 'Basic (Learning)', percentage: 40 },
-  { name: 'Afrikaans', level: 'Conversational', percentage: 70 },
+  { name: 'Afrikaans', level: 'First Additional Language', percentage: 75 },
 ])
 
-// Interests
+// Interests & Soft Skills
 const interests = ref([
+  { name: 'Problem-Solving', icon: '�', description: 'Analytical thinking & debugging' },
+  { name: 'Communication', icon: '💬', description: 'Clear technical communication' },
+  { name: 'Teamwork', icon: '🤝', description: 'Collaborative development' },
   { name: 'Hiking', icon: '🥾', description: 'Mountain trails & nature' },
-  { name: 'Cinema', icon: '🎬', description: 'Film enthusiast (Ster Kinekor)' },
-  { name: 'Coffee', icon: '☕', description: 'Local coffee scene explorer' },
-  { name: 'Quantum Computing', icon: '⚛️', description: 'Emerging tech trends' },
-  { name: 'Gaming', icon: '🎮', description: 'Strategy & indie games' },
-  { name: 'Photography', icon: '📷', description: 'Landscape & tech' },
+  { name: 'Cinema', icon: '�', description: 'Film enthusiast' },
+  { name: 'Coffee', icon: '☕', description: 'Coffee culture explorer' },
 ])
 
 // Achievements
 const achievements = ref([
   {
-    title: 'Football Player Tracking',
+    title: 'Football Player Tracking System',
     icon: '⚽',
-    year: '2025',
-    description: 'Built advanced player tracking system using YOLOv8 with high accuracy.',
-  },
-  {
-    title: 'Intern at 21',
-    icon: '💼',
-    year: '2025',
-    description: 'Secured an internship at Maskew Miller Learning.',
-  },
-  {
-    title: 'Continuous Learner',
-    icon: '📚',
-    year: 'Ongoing',
-    description: 'Always exploring new technologies and expanding skillset.',
-  },
-  {
-    title: 'Dirisa Datathon',
-    icon: '🏆',
     year: '2024',
-    description: 'Achieved top 10 placement in the Dirisa Datathon competition.',
+    description: 'Implemented and benchmarked DeepSORT and ByteTrack algorithms on SoccerNet data, analyzing MOTA and MOTP metrics.',
+  },
+  {
+    title: 'BSc Computer Science Graduate',
+    icon: '🎓',
+    year: '2024',
+    description: 'Successfully completed Bachelor\'s degree in Computer Science at University of the Western Cape.',
+  },
+  {
+    title: 'Web Development BootCamp',
+    icon: '�',
+    year: '2024',
+    description: 'Completed comprehensive web development training covering HTML, CSS, JavaScript, APIs, and Git.',
+  },
+  {
+    title: 'Mathematics Tutor',
+    icon: '📐',
+    year: '2023-2024',
+    description: 'Helped numerous students improve their understanding and performance in mathematics.',
   },
 ])
 

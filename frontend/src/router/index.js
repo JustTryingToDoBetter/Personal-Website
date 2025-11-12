@@ -8,6 +8,9 @@ import ProjectDetails from '@/views/ProjectDetails.vue'
 import ProjectsGallery from '@/views/ProjectsGallery.vue'
 import Blog from '@/views/Blog.vue'
 import BlogPost from '@/views/BlogPost.vue'
+import Research from '@/views/Research.vue'
+import CaseStudies from '@/views/CaseStudies.vue'
+import CaseStudyDetail from '@/views/CaseStudyDetail.vue'
 
 const routes = [
   {
@@ -17,10 +20,13 @@ const routes = [
       { path: '', name: 'Home', component: Home },
       { path: 'projects', name: 'Projects', component: ProjectsGallery },
       { path: 'projects/:id', name: 'ProjectDetails', component: ProjectDetails },
+      { path: 'case-studies', name: 'CaseStudies', component: CaseStudies },
+      { path: 'case-studies/:id', name: 'CaseStudyDetail', component: CaseStudyDetail },
+      { path: 'research', name: 'Research', component: Research },
       { path: 'about', name: 'About', component: About },
       { path: 'contact', name: 'Contact', component: Contact },
-  { path: 'blog', name: 'Blog', component: Blog },
-  { path: 'blog/:slug', name: 'BlogPost', component: BlogPost },
+      { path: 'blog', name: 'Blog', component: Blog },
+      { path: 'blog/:slug', name: 'BlogPost', component: BlogPost },
       { path: ':pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
   },

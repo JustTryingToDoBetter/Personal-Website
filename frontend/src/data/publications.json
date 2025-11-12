@@ -1,0 +1,58 @@
+{
+  "papers": [
+    {
+      "id": "paper-1",
+      "title": "Your Conference Paper Title Here",
+      "authors": ["Jaydin Morrison", "Co-Author Name"],
+      "conference": "Conference Name (e.g., IEEE ICML 2024)",
+      "date": "2024-06-15",
+      "type": "Conference Paper",
+      "status": "Published",
+      "abstract": "Brief abstract of your paper (2-3 sentences). This should summarize the key contribution, methodology, and findings.",
+      "keywords": ["Machine Learning", "Computer Vision", "Object Detection"],
+      "doi": "10.1234/conference.2024.12345",
+      "pdfUrl": "/papers/paper-1.pdf",
+      "citations": 5,
+      "featured": true,
+      "categories": ["AI/ML", "Research"]
+    },
+    {
+      "id": "paper-2",
+      "title": "Another Research Paper Title",
+      "authors": ["Jaydin Morrison", "Collaborator A", "Collaborator B"],
+      "conference": "International Conference on XYZ 2024",
+      "date": "2024-09-20",
+      "type": "Conference Paper",
+      "status": "Published",
+      "abstract": "Another paper abstract goes here. Describe the problem, approach, and key findings.",
+      "keywords": ["Deep Learning", "Tracking", "Sports Analytics"],
+      "doi": "10.1234/conference.2024.67890",
+      "pdfUrl": "/papers/paper-2.pdf",
+      "citations": 3,
+      "featured": true,
+      "categories": ["AI/ML", "Sports Tech"]
+    }
+  ],
+  "presentations": [
+    {
+      "id": "pres-1",
+      "title": "Talk/Presentation Title",
+      "event": "Event Name",
+      "date": "2024-10-15",
+      "type": "Oral Presentation",
+      "slidesUrl": "/slides/presentation-1.pdf",
+      "videoUrl": "https://youtube.com/watch?v=...",
+      "description": "Brief description of the presentation topic and audience."
+    }
+  ],
+  "posters": [
+    {
+      "id": "poster-1",
+      "title": "Poster Title",
+      "event": "Conference/Event Name",
+      "date": "2024-08-10",
+      "posterUrl": "/posters/poster-1.pdf",
+      "description": "Brief description of the poster content."
+    }
+  ]
+}

@@ -42,7 +42,7 @@ import { ref } from 'vue'
 const posts = ref([])
 
 // Load all markdown posts (raw) using Vite import.meta.glob
-const modules = import.meta.glob('/src/content/blog/*.md', { as: 'raw', eager: true })
+const modules = import.meta.glob('/src/content/blog/*.md', { query: '?raw', import: 'default', eager: true })
 
 function parseFrontmatter(raw) {
   const fm = { }

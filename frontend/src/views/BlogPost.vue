@@ -44,6 +44,35 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import MarkdownIt from 'markdown-it'
+import Prism from 'prismjs'
+import 'prismjs/themes/prism-tomorrow.css'
+// Import common language support
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-typescript'
+import 'prismjs/components/prism-python'
+import 'prismjs/components/prism-jsx'
+import 'prismjs/components/prism-tsx'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-css'
+import 'prismjs/components/prism-markdown'
+
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+  highlight: function (str, lang) {
+    if (lang && Prism.languages[lang]) {
+      try {
+        return `<pre class="language-${lang}"><code class="language-${lang}">${Prism.highlight(str, Prism.languages[lang], lang)}</code></pre>`
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    return `<pre class="language-${lang || 'text'}"><code>${md.utils.escapeHtml(str)}</code></pre>`
+  }
+})
 
 const route = useRoute()
 const slug = route.params.slug
@@ -75,39 +104,6 @@ function parseFrontmatter(raw) {
   return { front: fm, body }
 }
 
-function escapeHtml(str) {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-}
-
-function mdToHtml(raw) {
-  // Basic markdown conversion: code fences, headings, lists, links, images, bold, italic
-  let out = raw
-  // Code fences ```lang\ncode\n```
-  out = out.replace(/```(\w+)?\n([\s\S]*?)```/g, (m, lang, code) => {
-    return `<pre class="my-4"><code class="language-${lang || 'text'}">${escapeHtml(code)}</code></pre>`
-  })
-  // Images ![alt](url)
-  out = out.replace(/!\[(.*?)\]\((.*?)\)/g, '<img alt="$1" src="$2" class="rounded-lg my-4"/>')
-  // Links
-  out = out.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-  // Headings
-  out = out.replace(/^### (.*$)/gim, '<h3>$1</h3>')
-  out = out.replace(/^## (.*$)/gim, '<h2>$1</h2>')
-  out = out.replace(/^# (.*$)/gim, '<h1>$1</h1>')
-  // Bold
-  out = out.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-  // Italic
-  out = out.replace(/\*(.*?)\*/g, '<em>$1</em>')
-  // Unordered lists
-  out = out.replace(/(^|\n)-( )(.+)/g, (m, p1, p2, p3) => `\n<ul><li>${p3.trim()}</li></ul>`) // simple
-  // Paragraphs
-  out = out.split('\n\n').map(para => {
-    if (para.startsWith('<h') || para.startsWith('<ul') || para.startsWith('<pre') || para.startsWith('<img')) return para
-    return `<p>${para.replace(/\n/g, '<br/>')}</p>`
-  }).join('\n')
-  return out
-}
-
 function estimateReadingTime(text) {
   const words = text.trim().split(/\s+/).length
   return Math.max(1, Math.round(words / 200))
@@ -124,7 +120,7 @@ function shareUrl(network) {
 onMounted(async () => {
   loading.value = true
   try {
-    const modules = import.meta.glob('/src/content/blog/*.md', { as: 'raw', eager: true })
+    const modules = import.meta.glob('/src/content/blog/*.md', { query: '?raw', import: 'default', eager: true })
     const key = Object.keys(modules).find(p => p.endsWith(`${slug}.md`))
     if (!key) {
       post.value = null
@@ -140,7 +136,7 @@ onMounted(async () => {
       emoji: front.emoji || '',
       body
     }
-    htmlBody.value = mdToHtml(body)
+    htmlBody.value = md.render(body)
     post.value.readingTime = estimateReadingTime(body)
   } catch (e) {
     console.error(e)
@@ -151,16 +147,16 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
-pre {
-  background: #0f172a;
-  color: #e6eef8;
-  padding: 1rem;
+<style>
+/* Prism code blocks are already styled by prism-tomorrow.css */
+/* Add any additional custom styling here */
+pre[class*="language-"] {
+  margin: 1.5rem 0;
   border-radius: 0.5rem;
   overflow-x: auto;
 }
 
-code {
+code[class*="language-"] {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
 }
 </style>
