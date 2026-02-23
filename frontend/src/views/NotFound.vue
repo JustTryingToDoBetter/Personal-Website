@@ -1,20 +1,19 @@
 <template>
-  <div class="container mx-auto px-4 py-24 text-center">
-    <h1 class="text-5xl font-extrabold mb-4">404</h1>
-    <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-      Oops! The page you're looking for doesn't exist.
-    </p>
-    <router-link
-      to="/"
-      class="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-    >
-      Go Home
-    </router-link>
-  </div>
+  <Section class-name="pt-24 md:pt-32">
+    <div class="text-center">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-red-500">404</p>
+      <h1 class="mt-3 font-display text-4xl text-white sm:text-5xl">Page Not Found</h1>
+      <p class="mx-auto mt-4 max-w-xl text-gray-400">
+        The page you requested does not exist or was moved during the latest frontend refactor.
+      </p>
+      <div class="mt-8">
+        <Button to="/">Return Home</Button>
+      </div>
+    </div>
+  </Section>
 </template>
 
-<script>
-export default {
-  name: 'NotFound',
-}
+<script setup>
+import Section from '@/components/layout/Section.vue'
+import Button from '@/components/ui/Button.vue'
 </script>

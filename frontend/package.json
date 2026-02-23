@@ -9,15 +9,14 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.6.7",
-    "markdown-it": "^14.1.0",
-    "prismjs": "^1.30.0",
-    "three": "^0.180.0",
-    "vanta": "^0.5.24",
+    "@headlessui/vue": "^1.7.23",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.525.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@vitejs/plugin-vue": "^4.3.4",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
