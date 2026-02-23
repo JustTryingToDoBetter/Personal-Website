@@ -8,10 +8,5 @@
   "scripts": {
     "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "dependencies": {
-    "@vueuse/motion": "^3.0.3",
-    "three": "^0.180.0",
-    "troisjs": "^0.3.4",
-    "vanta": "^0.5.24"
-  }
+  "dependencies": {}
 }
