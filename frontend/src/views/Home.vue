@@ -3,13 +3,13 @@
     <div class="grid gap-10 lg:grid-cols-[1.2fr,1fr] lg:items-end">
       <div>
         <p class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-gray-400">
-          Software Engineer
+          Aspiring Software Developer 
         </p>
         <h1 class="font-display text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
           Building reliable products with clean systems and fast iteration.
         </h1>
         <p class="mt-5 max-w-2xl text-base text-gray-400 sm:text-lg">
-          I focus on full-stack applications, ML-enabled workflows, and production performance.
+          I focus on full-stack applications, developing workflow systems, and production performance.
           This site highlights selected work and current priorities.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
@@ -21,9 +21,9 @@
         <p class="font-mono text-xs uppercase tracking-[0.2em] text-gray-400">Now</p>
         <h2 class="mt-3 font-display text-2xl text-white">Building</h2>
         <ul class="mt-4 space-y-3 text-sm text-gray-400">
-          <li>Production monitoring patterns for ML pipelines.</li>
-          <li>Security-focused API hardening for internal tools.</li>
-          <li>Lean UI systems for portfolio and client projects.</li>
+          <li>Church website</li>
+          <li>maintaining the business website</li>
+          <li>a mini programming language as an interpreter</li>
         </ul>
       </Card>
     </div>
