@@ -5,6 +5,7 @@ __pycache__/
 # Ignore node dependencies and build artifacts
 **/node_modules/
 frontend/dist/
+frontend/.next/
 
 # Environment variable files
 *.env

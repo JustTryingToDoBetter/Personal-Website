@@ -1,8 +1,10 @@
-import typography from '@tailwindcss/typography'
-
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{vue,js,ts}'],
+module.exports = {
+  content: [
+    './app/**/*.{js,jsx,ts,tsx,mdx}',
+    './components/**/*.{js,jsx,ts,tsx,mdx}',
+    './data/**/*.{js,jsx,ts,tsx,mdx}',
+  ],
   theme: {
     container: {
       center: true,
@@ -27,29 +29,13 @@ export default {
       },
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        display: ['Geist', 'Inter', 'sans-serif'],
+        display: ['Syne', 'Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
         lg: '0.5rem',
       },
-      typography: () => ({
-        invert: {
-          css: {
-            color: '#F5F5F7',
-            '--tw-prose-headings': '#F5F5F7',
-            '--tw-prose-body': '#9CA3AF',
-            '--tw-prose-links': '#F5F5F7',
-            '--tw-prose-bold': '#F5F5F7',
-            '--tw-prose-code': '#F5F5F7',
-            '--tw-prose-pre-bg': '#121217',
-            '--tw-prose-pre-code': '#F5F5F7',
-            '--tw-prose-quotes': '#F5F5F7',
-            '--tw-prose-hr': 'rgba(75, 85, 99, 0.5)',
-          },
-        },
-      }),
     },
   },
-  plugins: [typography],
+  plugins: [],
 }
