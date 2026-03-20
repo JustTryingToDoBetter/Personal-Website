@@ -116,7 +116,7 @@
   .hero-portrait-shell {
     position: relative;
     margin-inline: auto;
-    width: min(470px, 92%);
+    width: clamp(190px, 34vw, 260px);
     will-change: transform;
   }
 
@@ -132,7 +132,7 @@
   .hero-portrait-image {
     width: 100%;
     border-radius: 22px;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
   }
 

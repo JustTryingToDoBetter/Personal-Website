@@ -178,7 +178,7 @@ export default function PortfolioPage() {
               className="hero-portrait-card"
             >
               <Image
-                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=1000&q=80"
+                src="/jojo.png"
                 alt="Profile placeholder"
                 width={900}
                 height={1100}
