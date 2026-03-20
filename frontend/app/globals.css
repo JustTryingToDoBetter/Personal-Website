@@ -8,10 +8,13 @@
   html,
   body {
     min-height: 100%;
+    width: 100%;
+    overflow-x: clip;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -37,6 +40,7 @@
   .portfolio-root {
     position: relative;
     isolation: isolate;
+    overflow-x: clip;
   }
 
   .page-reveal {
@@ -152,6 +156,39 @@
     bottom: -16px;
   }
 
+  .mobile-tech-cloud {
+    position: relative;
+    height: 230px;
+    width: 100%;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: radial-gradient(circle at 20% 18%, rgba(225, 6, 0, 0.2), transparent 48%),
+      radial-gradient(circle at 78% 84%, rgba(0, 220, 255, 0.17), transparent 45%),
+      rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 16px 34px rgba(0, 0, 0, 0.35);
+  }
+
+  .mobile-tech-pill {
+    position: absolute;
+    top: var(--ty);
+    left: var(--tx);
+    transform: translate(-50%, -50%);
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(9, 11, 20, 0.75);
+    color: rgba(245, 245, 247, 0.95);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+    animation: techDrift var(--dur) cubic-bezier(0.42, 0, 0.22, 1) infinite;
+    animation-delay: var(--delay);
+  }
+
   .project-card {
     overflow: hidden;
     border-radius: 1.2rem;
@@ -160,12 +197,6 @@
     backdrop-filter: blur(9px);
     transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
     will-change: transform;
-  }
-
-  .project-card:hover {
-    transform: translateY(-7px) scale(1.01);
-    border-color: rgba(225, 6, 0, 0.65);
-    box-shadow: 0 22px 50px rgba(225, 6, 0, 0.2);
   }
 
   .project-image-wrap {
@@ -197,8 +228,45 @@
     transition: opacity 260ms ease;
   }
 
-  .project-card:hover .project-overlay {
+  .mobile-nav {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 260ms ease, opacity 220ms ease;
+  }
+
+  .mobile-nav > nav {
+    overflow: hidden;
+  }
+
+  .mobile-nav.open {
+    grid-template-rows: 1fr;
     opacity: 1;
+  }
+
+  .compact-lane {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .compact-lane::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-card:hover {
+      transform: translateY(-7px) scale(1.01);
+      border-color: rgba(225, 6, 0, 0.65);
+      box-shadow: 0 22px 50px rgba(225, 6, 0, 0.2);
+    }
+
+    .project-card:hover .project-image {
+      transform: scale(1.06);
+    }
+
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
   }
 
   @media (max-width: 768px) {
@@ -219,6 +287,72 @@
       left: -8px;
       bottom: -10px;
     }
+
+    .project-overlay {
+      opacity: 1;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding: 0.75rem;
+      background: linear-gradient(to top, rgba(11, 11, 15, 0.88), rgba(11, 11, 15, 0.18));
+    }
+  }
+
+  @media (max-width: 640px) {
+    section {
+      scroll-margin-top: 4.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-grid {
+      inset: -24px -12px;
+      background-size: 28px 28px;
+      opacity: 0.11;
+    }
+
+    .hero-orb {
+      width: 210px;
+      height: 210px;
+      filter: blur(55px);
+    }
+
+    .hero-orb-one {
+      right: 6%;
+      top: -52px;
+    }
+
+    .hero-orb-two {
+      left: -70px;
+      bottom: -94px;
+    }
+
+    .hero-portrait-shell {
+      width: clamp(172px, 48vw, 230px);
+    }
+
+    .mobile-tech-cloud {
+      height: 210px;
+    }
+
+    .mobile-tech-pill {
+      font-size: 0.62rem;
+      padding: 0.34rem 0.62rem;
+      letter-spacing: 0.07em;
+    }
+
+    .hero-chip {
+      max-width: 165px;
+    }
+
+    .hero-chip-top {
+      display: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .hero-chip-bottom {
+      display: none;
+    }
   }
 }
 
@@ -237,5 +371,21 @@
   }
   100% {
     transform: translate(0, 0);
+  }
+}
+
+@keyframes techDrift {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+  22% {
+    transform: translate(-50%, -50%) translate(calc(var(--ax) * var(--drift)), calc(var(--ay) * var(--drift) * -0.9));
+  }
+  48% {
+    transform: translate(-50%, -50%) translate(calc(var(--ax) * var(--drift) * -0.72), calc(var(--ay) * var(--drift) * 0.88));
+  }
+  74% {
+    transform: translate(-50%, -50%) translate(calc(var(--ax) * var(--drift) * 0.86), calc(var(--ay) * var(--drift) * 0.52));
   }
 }

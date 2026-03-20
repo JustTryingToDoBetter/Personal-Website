@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 
-export default function Button({ href = '#', variant = 'primary', className = '', children }) {
+export default function Button({ href = '#', variant = 'primary', className = '', children, ...props }) {
   const classes = clsx(
     'inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold transition duration-300 will-change-transform',
     'hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black',
@@ -13,7 +13,7 @@ export default function Button({ href = '#', variant = 'primary', className = ''
   )
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} className={classes} {...props}>
       {children}
     </Link>
   )
