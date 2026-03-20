@@ -203,25 +203,33 @@ export default function PortfolioPage() {
               const radiusY = ring === 0 ? 16 : ring === 1 ? 21 : 24
               const offsetX = 50 + Math.cos(angle) * radiusX
               const offsetY = 50 + Math.sin(angle) * radiusY
-              const drift = 6 + (index % 4) * 2.4
               const duration = 9.8 + (index % 4) * 1.15
               const delay = (index % 6) * -0.75
 
               return (
                 <span
                   key={item}
-                  className="mobile-tech-pill"
+                  className="mobile-tech-pill-anchor"
                   style={{
                     '--tx': `${offsetX}%`,
                     '--ty': `${offsetY}%`,
-                    '--ax': `${Math.cos(angle).toFixed(4)}`,
-                    '--ay': `${Math.sin(angle).toFixed(4)}`,
-                    '--drift': `${drift}px`,
-                    '--dur': `${duration}s`,
-                    '--delay': `${delay}s`,
                   }}
                 >
-                  {item}
+                  <motion.span
+                    className="mobile-tech-pill"
+                    animate={{
+                      x: [0, (index % 2 === 0 ? 1 : -1) * (10 + (index % 3) * 4), (index % 2 === 0 ? -1 : 1) * (8 + (index % 4) * 2), 0],
+                      y: [0, (index % 3 === 0 ? -1 : 1) * (9 + (index % 4) * 3), (index % 2 === 0 ? 1 : -1) * (7 + (index % 3) * 2), 0],
+                    }}
+                    transition={{
+                      duration,
+                      delay,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  >
+                    {item}
+                  </motion.span>
                 </span>
               )
             })}
@@ -267,7 +275,7 @@ export default function PortfolioPage() {
             </Card>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="hidden md:block">
             <Card className="h-full p-5 sm:p-7">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-red-400">Skills</p>
               <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">

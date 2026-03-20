@@ -7,7 +7,7 @@
  *  3. Proxies API requests to the underlying Django service, rewriting the `/api` prefix.  A dedicated
  *     `/api/contact` handler is provided to illustrate how to intercept and customise proxied requests.
  *
- * In production the middleware also serves the compiled Vue frontend from `../frontend/dist`.
+ * In production the middleware proxies all non-API routes to a local Next.js server.
  */
 
 const express = require('express')
@@ -79,14 +79,18 @@ app.post('/api/contact', async (req, res) => {
   }
 })
 
-// Serve the compiled frontend in production
+// In production, forward all non-API requests to Next.js.
 if (process.env.NODE_ENV === 'production') {
-  const path = require('path')
-  const distDir = path.join(__dirname, '../frontend/dist')
-  app.use(express.static(distDir))
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distDir, 'index.html'))
-  })
+  const nextFrontendUrl = process.env.NEXT_FRONTEND_URL || 'http://127.0.0.1:3001'
+
+  app.use(
+    '/',
+    createProxyMiddleware({
+      target: nextFrontendUrl,
+      changeOrigin: true,
+      ws: true,
+    }),
+  )
 }
 
 const PORT = process.env.PORT || 3000
