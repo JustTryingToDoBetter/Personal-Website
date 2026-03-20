@@ -21,6 +21,10 @@ gunicorn core.wsgi:application --pythonpath backend --bind 0.0.0.0:8000 &
 NEXT_PORT="${NEXT_PORT:-3001}"
 export NEXT_FRONTEND_URL="http://127.0.0.1:${NEXT_PORT}"
 
+echo "[start-prod] Building Next.js frontend..."
+rm -rf frontend/.next
+npm run build --prefix frontend
+
 echo "[start-prod] Starting Next.js frontend on port ${NEXT_PORT}..."
 npm run start --prefix frontend -- --hostname 0.0.0.0 --port "${NEXT_PORT}" &
 

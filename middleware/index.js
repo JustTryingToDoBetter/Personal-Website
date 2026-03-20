@@ -82,15 +82,40 @@ app.post('/api/contact', async (req, res) => {
 // In production, forward all non-API requests to Next.js.
 if (process.env.NODE_ENV === 'production') {
   const nextFrontendUrl = process.env.NEXT_FRONTEND_URL || 'http://127.0.0.1:3001'
+  const nextProxy = createProxyMiddleware({
+    target: nextFrontendUrl,
+    changeOrigin: true,
+    ws: true,
+    onError: (err, req, res) => {
+      console.error('[middleware] Next.js upstream error:', err.message)
+      if (!res.headersSent) {
+        res.status(503).send('Frontend temporarily unavailable. Please retry in a moment.')
+      }
+    },
+  })
 
+  // Compatibility: some proxies/browser caches may request /next/* instead of /_next/*.
   app.use(
-    '/',
+    '/next',
     createProxyMiddleware({
       target: nextFrontendUrl,
       changeOrigin: true,
       ws: true,
+      pathRewrite: {
+        '^/next': '/_next',
+      },
+      onError: (err, req, res) => {
+        console.error('[middleware] Next.js asset upstream error:', err.message)
+        if (!res.headersSent) {
+          res.status(503).send('Frontend assets temporarily unavailable.')
+        }
+      },
     }),
   )
+
+  app.use('/_next', nextProxy)
+
+  app.use('/', nextProxy)
 }
 
 const PORT = process.env.PORT || 3000
