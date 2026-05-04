@@ -10,6 +10,7 @@ import AnimatedSection from '@/components/ui/AnimatedSection'
 import FloatingOrb from '@/components/ui/FloatingOrb'
 import MagneticButton from '@/components/ui/MagneticButton'
 import SectionHeader from '@/components/ui/SectionHeader'
+import SkillPill from '@/components/ui/SkillPill'
 import { projects } from '@/data/projects'
 
 const stagger = {
@@ -35,17 +36,48 @@ const getFadeUp = (reducedMotion) => ({
       },
 })
 
-const skillList = [
-  'Frontend Architecture',
-  'AI Product Engineering',
-  'Motion Design Systems',
-  'Performance Optimization',
-  'Statistical modeling',
-  'Design-to-Code Workflows',
-  'Secure system design',
-  'Microservices architecture',
-  'Pipeline orchestration',
-  'Evolutionary algorithms'
+const skillGroups = [
+  {
+    title: 'Frontend & Product',
+    skills: ['Frontend Architecture', 'Design-to-Code Workflows', 'Motion Design Systems', 'UX Prototyping'],
+  },
+  {
+    title: 'Backend & APIs',
+    skills: ['FastAPI Services', 'Microservices Architecture', 'REST & GraphQL APIs', 'System Integrations'],
+  },
+  {
+    title: 'Data / AI / ML',
+    skills: ['AI Product Engineering', 'Statistical Modeling', 'Evolutionary Algorithms', 'Pipeline Orchestration'],
+  },
+  {
+    title: 'DevOps & Systems',
+    skills: ['Performance Optimization', 'Docker & Kubernetes', 'Observability Tooling', 'Cloud Deployment'],
+  },
+  {
+    title: 'Security & Architecture',
+    skills: ['Secure System Design', 'Threat-Aware Engineering', 'Scalable Architecture', 'Reliability Patterns'],
+  },
+]
+
+const builderPhilosophy = [
+  {
+    title: 'Systems thinking',
+    copy: 'Designing connected experiences where product, platform, and process reinforce each other.',
+    icon: '◧',
+    accent: 'from-red-500/35 via-red-400/10 to-transparent',
+  },
+  {
+    title: 'Polished UX',
+    copy: 'Crafting interfaces that feel effortless, responsive, and clear from first interaction to power use.',
+    icon: '✦',
+    accent: 'from-orange-400/35 via-amber-300/10 to-transparent',
+  },
+  {
+    title: 'Scalable engineering',
+    copy: 'Building resilient foundations that stay maintainable as teams, traffic, and complexity grow.',
+    icon: '⬢',
+    accent: 'from-emerald-400/30 via-cyan-300/10 to-transparent',
+  },
 ]
 
 const techStackItems = [
@@ -387,17 +419,54 @@ export default function PortfolioPage() {
             </Card>
           </AnimatedSection>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="hidden md:block">
-            <Card className="h-full p-5 sm:p-7">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-red-400">Skills</p>
-              <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
-                {skillList.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs text-gray-100 sm:px-3 sm:py-1.5 sm:text-sm"
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.22 }}
+            variants={stagger}
+            className="space-y-4"
+          >
+            <Card className="p-5 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-red-400 sm:text-xs">Skills</p>
+              <h3 className="mt-3 font-display text-xl text-white sm:text-2xl">Capabilities across the product stack.</h3>
+              <p className="mt-2 max-w-2xl text-sm text-gray-300 sm:text-base">From interface systems to infrastructure, I build cohesive solutions that are fast, human, and built to last.</p>
+
+              <div className="mt-5 grid gap-3 md:grid-cols-2">
+                {skillGroups.map((group, index) => (
+                  <motion.div
+                    key={group.title}
+                    variants={fadeUp}
+                    transition={{ delay: prefersReducedMotion ? 0 : index * 0.05 }}
+                    className="rounded-2xl border border-white/12 bg-white/[0.03] p-4 sm:p-5"
                   >
-                    {skill}
-                  </span>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-gray-300">{group.title}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {group.skills.map((skill) => (
+                        <SkillPill key={skill}>{skill}</SkillPill>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </Card>
+
+            <Card className="p-5 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-red-400 sm:text-xs">Builder Philosophy</p>
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {builderPhilosophy.map((item, index) => (
+                  <motion.article
+                    key={item.title}
+                    variants={fadeUp}
+                    transition={{ delay: prefersReducedMotion ? 0 : index * 0.07 }}
+                    className="group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.03] p-4 sm:p-5"
+                  >
+                    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${item.accent} opacity-70 transition-opacity duration-300 group-hover:opacity-100`} />
+                    <div className="relative">
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-sm text-white">{item.icon}</span>
+                      <h4 className="mt-3 font-display text-lg text-white">{item.title}</h4>
+                      <p className="mt-2 text-sm text-gray-200">{item.copy}</p>
+                    </div>
+                  </motion.article>
                 ))}
               </div>
             </Card>
