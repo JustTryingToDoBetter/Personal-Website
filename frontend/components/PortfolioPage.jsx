@@ -345,37 +345,41 @@ export default function PortfolioPage() {
                 <p className="mt-2 text-sm text-white">Remote collaborations and product sprints</p>
               </Card>
 
-              <Card className="hero-chip right-[-2rem] top-[18%] w-[19rem] p-4 sm:p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-red-300">Builder Console</p>
-                <div className="mt-3 space-y-2.5">
-                  {builderRows.map((row, index) => (
-                    <motion.div
-                      key={row}
-                      className="flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-3 py-2"
-                      initial={{ opacity: 0.65, scale: 0.99 }}
-                      animate={
-                        prefersReducedMotion
-                          ? { opacity: 1, scale: 1 }
-                          : { opacity: [0.72, 1, 0.72], scale: [0.995, 1, 0.995] }
-                      }
-                      transition={{ duration: 2.8, repeat: prefersReducedMotion ? 0 : Infinity, delay: index * 0.2 }}
-                    >
-                      <span className="text-xs text-gray-100">{row}</span>
-                      <motion.span
-                        className="h-2.5 w-2.5 rounded-full bg-emerald-300"
-                        animate={prefersReducedMotion ? { opacity: 0.9, scale: 1 } : { opacity: [0.45, 1, 0.45], scale: [0.92, 1.1, 0.92] }}
-                        transition={{ duration: 1.9, repeat: prefersReducedMotion ? 0 : Infinity, delay: index * 0.16 }}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              </Card>
+              
             </motion.div>
           </motion.div>
         </div>
       </Section>
 
-    
+      <Section id="about" className="pt-3 md:pt-8">
+        <div className="compact-lane grid grid-flow-col auto-cols-[92%] gap-3 overflow-x-auto pb-2 sm:auto-cols-[72%] md:grid-flow-row md:auto-cols-auto md:overflow-visible md:pb-0 lg:grid-cols-[1.1fr,0.9fr]">
+          <AnimatedSection variants={fadeUp}>
+            <Card className="h-full p-5 sm:p-7">
+              <SectionHeader
+                label="About"
+                title="Building digital products with precision and personality."
+                description="I blend software engineering, visual design, and interaction choreography to craft fast, expressive experiences that feel intentional at every touchpoint."
+              />
+            </Card>
+          </AnimatedSection>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="hidden md:block">
+            <Card className="h-full p-5 sm:p-7">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-red-400">Skills</p>
+              <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+                {skillList.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs text-gray-100 sm:px-3 sm:py-1.5 sm:text-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+      </Section>
 
       <Section id="projects" className="pt-2 sm:pt-6">
         <div className="mb-6 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-end sm:gap-4">
