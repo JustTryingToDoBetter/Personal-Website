@@ -506,14 +506,14 @@ export default function PortfolioPage() {
 
       <Section id="contact" className="pb-10 pt-4 sm:pb-14 sm:pt-8">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={fadeUp}>
-          <Card className="p-5 sm:p-8">
+          <Card className="contact-panel p-5 sm:p-8">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-red-400">Contact</p>
-            <h2 className="mt-4 font-display text-2xl text-white sm:text-4xl">Let us build something remarkable.</h2>
+            <h2 className="mt-4 font-display text-2xl text-white sm:text-4xl">Let’s build something that ships and scales.</h2>
             <p className="mt-3 max-w-2xl text-sm text-gray-200 sm:mt-4 sm:text-base">
-              Reach out for product partnerships, AI-powered experiences, or full-cycle application development.
+              I'm available for product partnerships, AI-powered experiences, and full-cycle application development from strategy through launch.
             </p>
             <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
-              <MagneticButton href="mailto:hello@example.com">Contact Me</MagneticButton>
+              <MagneticButton href="mailto:hello@example.com" className="cta-glow-button">Start a Conversation</MagneticButton>
               <MagneticButton href="#projects" variant="secondary">
                 View Projects
               </MagneticButton>
