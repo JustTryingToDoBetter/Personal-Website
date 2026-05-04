@@ -4,9 +4,12 @@ import Image from 'next/image'
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import TopNav from '@/components/layout/TopNav'
-import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Section from '@/components/ui/Section'
+import AnimatedSection from '@/components/ui/AnimatedSection'
+import FloatingOrb from '@/components/ui/FloatingOrb'
+import MagneticButton from '@/components/ui/MagneticButton'
+import SectionHeader from '@/components/ui/SectionHeader'
 import { projects } from '@/data/projects'
 
 const stagger = {
@@ -60,6 +63,14 @@ const techStackItems = [
   'AWS',
 ]
 
+const builderRows = [
+  'Frontend Architecture',
+  'AI Product Engineering',
+  'Performance',
+  'Secure Systems',
+  'Motion Design',
+]
+
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
 
@@ -78,10 +89,10 @@ export default function PortfolioPage() {
 
   const portraitX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [-16, 16])
   const portraitY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [-12, 12])
-  const orbOneX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [-24, 24])
-  const orbOneY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [-20, 20])
-  const orbTwoX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [18, -18])
-  const orbTwoY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [14, -14])
+  const orbOneX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [-22, 22])
+  const orbOneY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [-18, 18])
+  const orbTwoX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [16, -16])
+  const orbTwoY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [12, -12])
 
   const fadeUp = useMemo(() => getFadeUp(prefersReducedMotion), [prefersReducedMotion])
 
@@ -158,8 +169,8 @@ export default function PortfolioPage() {
         id="hero"
         className="relative min-h-[calc(90vh-4rem)] overflow-hidden pt-3 sm:pt-6 md:pt-10"
       >
-        <motion.div className="hero-orb hero-orb-one" style={{ x: orbOneX, y: orbOneY }} />
-        <motion.div className="hero-orb hero-orb-two" style={{ x: orbTwoX, y: orbTwoY }} />
+        <FloatingOrb className="hero-orb-one" color="bg-red-500/35" style={{ x: orbOneX, y: orbOneY }} />
+        <FloatingOrb className="hero-orb-two" color="bg-orange-300/30" style={{ x: orbTwoX, y: orbTwoY }} />
         <div className="hero-grid" />
         <div className="hero-noise" />
 
@@ -186,16 +197,16 @@ export default function PortfolioPage() {
               </span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="mt-4 max-w-2xl text-sm text-gray-200 sm:mt-6 sm:text-lg">
+            <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-base leading-relaxed text-gray-100 sm:mt-7 sm:text-lg">
               Crafting polished digital products with strong engineering foundations,
               expressive animation, and intuitive user interaction.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
-              <Button href="#projects">View Projects</Button>
-              <Button href="#contact" variant="secondary">
+            <motion.div variants={fadeUp} className="mt-7 flex flex-wrap gap-3 sm:mt-9 sm:gap-3.5">
+              <MagneticButton href="#projects">View Projects</MagneticButton>
+              <MagneticButton href="#contact" variant="secondary">
                 Contact Me
-              </Button>
+              </MagneticButton>
             </motion.div>
           </motion.div>
 
@@ -266,6 +277,32 @@ export default function PortfolioPage() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-gray-300">Available</p>
                 <p className="mt-2 text-sm text-white">Remote collaborations and product sprints</p>
               </Card>
+
+              <Card className="hero-chip right-[-2rem] top-[18%] w-[19rem] p-4 sm:p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-red-300">Builder Console</p>
+                <div className="mt-3 space-y-2.5">
+                  {builderRows.map((row, index) => (
+                    <motion.div
+                      key={row}
+                      className="flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-3 py-2"
+                      initial={{ opacity: 0.65, scale: 0.99 }}
+                      animate={
+                        prefersReducedMotion
+                          ? { opacity: 1, scale: 1 }
+                          : { opacity: [0.72, 1, 0.72], scale: [0.995, 1, 0.995] }
+                      }
+                      transition={{ duration: 2.8, repeat: prefersReducedMotion ? 0 : Infinity, delay: index * 0.2 }}
+                    >
+                      <span className="text-xs text-gray-100">{row}</span>
+                      <motion.span
+                        className="h-2.5 w-2.5 rounded-full bg-emerald-300"
+                        animate={prefersReducedMotion ? { opacity: 0.9, scale: 1 } : { opacity: [0.45, 1, 0.45], scale: [0.92, 1.1, 0.92] }}
+                        transition={{ duration: 1.9, repeat: prefersReducedMotion ? 0 : Infinity, delay: index * 0.16 }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </Card>
             </motion.div>
           </motion.div>
         </div>
@@ -273,16 +310,15 @@ export default function PortfolioPage() {
 
       <Section id="about" className="pt-3 md:pt-8">
         <div className="compact-lane grid grid-flow-col auto-cols-[92%] gap-3 overflow-x-auto pb-2 sm:auto-cols-[72%] md:grid-flow-row md:auto-cols-auto md:overflow-visible md:pb-0 lg:grid-cols-[1.1fr,0.9fr]">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
+          <AnimatedSection variants={fadeUp}>
             <Card className="h-full p-5 sm:p-7">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-red-400">About</p>
-              <h2 className="mt-4 font-display text-2xl text-white sm:text-3xl">Building digital products with precision and personality.</h2>
-              <p className="mt-3 text-sm text-gray-200 sm:text-base">
-                I blend software engineering, visual design, and interaction choreography to craft
-                fast, expressive experiences that feel intentional at every touchpoint.
-              </p>
+              <SectionHeader
+                label="About"
+                title="Building digital products with precision and personality."
+                description="I blend software engineering, visual design, and interaction choreography to craft fast, expressive experiences that feel intentional at every touchpoint."
+              />
             </Card>
-          </motion.div>
+          </AnimatedSection>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="hidden md:block">
             <Card className="h-full p-5 sm:p-7">
@@ -351,10 +387,10 @@ export default function PortfolioPage() {
               Reach out for product partnerships, AI-powered experiences, or full-cycle application development.
             </p>
             <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
-              <Button href="mailto:hello@example.com">Contact Me</Button>
-              <Button href="#projects" variant="secondary">
+              <MagneticButton href="mailto:hello@example.com">Contact Me</MagneticButton>
+              <MagneticButton href="#projects" variant="secondary">
                 View Projects
-              </Button>
+              </MagneticButton>
             </div>
           </Card>
         </motion.div>
