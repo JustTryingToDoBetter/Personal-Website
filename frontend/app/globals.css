@@ -273,6 +273,30 @@
     }
   }
 
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-noise {
+      animation: none;
+    }
+
+    .custom-cursor {
+      display: none;
+    }
+
+    .project-card,
+    .project-image,
+    .project-overlay,
+    .mobile-nav {
+      transition-duration: 120ms;
+      transition-timing-function: linear;
+    }
+
+    .project-card:hover,
+    .project-card:hover .project-image {
+      transform: none;
+    }
+  }
+
   @media (max-width: 768px) {
     .custom-cursor {
       display: none;
