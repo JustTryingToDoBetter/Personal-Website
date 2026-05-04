@@ -71,6 +71,70 @@ const builderRows = [
   'Motion Design',
 ]
 
+
+function ProjectCard({ project, index, prefersReducedMotion }) {
+  const rotateX = useMotionValue(0)
+  const rotateY = useMotionValue(0)
+  const [isFinePointer, setIsFinePointer] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    setIsFinePointer(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+  }, [])
+
+  const handleMove = (event) => {
+    if (!isFinePointer || prefersReducedMotion) return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width
+    const y = (event.clientY - bounds.top) / bounds.height
+    rotateY.set((x - 0.5) * 9)
+    rotateX.set((0.5 - y) * 9)
+  }
+
+  const handleLeave = () => {
+    rotateX.set(0)
+    rotateY.set(0)
+  }
+
+  const cardBody = (
+    <>
+      <div className="project-image-wrap">
+        <Image src={project.image} alt={project.title} width={900} height={580} className="project-image" loading="lazy" />
+        <div className="project-overlay">
+          <span className="rounded-full border border-white/45 bg-black/35 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">View Details</span>
+        </div>
+      </div>
+      <div className="p-4 sm:p-5">
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="font-display text-lg text-white sm:text-xl">{project.title}</h3>
+          {project.category ? <span className="rounded-full border border-white/20 bg-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-red-300">{project.category}</span> : null}
+        </div>
+        <p className="mt-2 text-xs text-gray-200 sm:text-sm">{project.description}</p>
+        {!!project.tech?.length && <div className="mt-3 flex flex-wrap gap-1.5">{project.tech.map((item) => <span key={item} className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] text-gray-100 sm:text-xs">{item}</span>)}</div>}
+        {project.impact ? <p className="mt-3 text-xs text-gray-300 sm:text-sm"><span className="text-red-300">Impact:</span> {project.impact}</p> : null}
+        <div className="mt-4 text-sm font-medium text-red-300">View Details →</div>
+      </div>
+    </>
+  )
+
+  return (
+    <motion.article
+      layout
+      key={project.id}
+      initial={{ opacity: 0, y: 24, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      className="project-card min-w-[84%] snap-start sm:min-w-[66%] md:min-w-0"
+      style={isFinePointer && !prefersReducedMotion ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : undefined}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
+      {project.href ? <a href={project.href} target="_blank" rel="noreferrer" className="block h-full">{cardBody}</a> : <div className="block h-full">{cardBody}</div>}
+    </motion.article>
+  )
+}
+
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
 
@@ -83,6 +147,9 @@ export default function PortfolioPage() {
 
   const [cursorVisible, setCursorVisible] = useState(false)
   const [cursorInteractive, setCursorInteractive] = useState(false)
+  const categories = useMemo(() => ['All', ...new Set(projects.map((project) => project.category).filter(Boolean))], [])
+  const [activeCategory, setActiveCategory] = useState('All')
+  const filteredProjects = useMemo(() => activeCategory === 'All' ? projects : projects.filter((project) => project.category === activeCategory), [activeCategory])
 
   const smoothX = useSpring(mouseX, { stiffness: 80, damping: 18, mass: 0.3 })
   const smoothY = useSpring(mouseY, { stiffness: 80, damping: 18, mass: 0.3 })
@@ -344,38 +411,28 @@ export default function PortfolioPage() {
           <p className="text-sm text-gray-300">Selected case studies</p>
         </div>
 
-        <div className="compact-lane flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 md:grid md:snap-none md:overflow-visible md:pb-0 md:[grid-template-columns:repeat(2,minmax(0,1fr))] xl:[grid-template-columns:repeat(3,minmax(0,1fr))]">
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.id}
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.22 }}
-              transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              className="project-card min-w-[84%] snap-start sm:min-w-[66%] md:min-w-0"
-            >
-              <div className="project-image-wrap">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={900}
-                  height={580}
-                  className="project-image"
-                  loading="lazy"
-                />
-                <div className="project-overlay">
-                  <span className="rounded-full border border-white/45 bg-black/35 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">
-                    View Details
-                  </span>
-                </div>
-              </div>
-              <div className="p-4 sm:p-5">
-                <h3 className="font-display text-lg text-white sm:text-xl">{project.title}</h3>
-                <p className="mt-1.5 text-xs text-gray-200 sm:mt-2 sm:text-sm">{project.description}</p>
-              </div>
-            </motion.article>
+        <motion.div layout className="mb-4 flex flex-wrap gap-2 sm:mb-5">
+          {categories.map((category) => {
+            const isActive = category === activeCategory
+            return (
+              <motion.button
+                layout
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.14em] transition ${isActive ? 'border-red-400 bg-red-500/20 text-red-100' : 'border-white/20 bg-white/5 text-gray-200 hover:border-white/40'}`}
+              >
+                {category}
+              </motion.button>
+            )
+          })}
+        </motion.div>
+
+        <motion.div layout className="compact-lane flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 md:grid md:snap-none md:overflow-visible md:pb-0 md:[grid-template-columns:repeat(2,minmax(0,1fr))] xl:[grid-template-columns:repeat(3,minmax(0,1fr))]">
+          {filteredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} prefersReducedMotion={prefersReducedMotion} />
           ))}
-        </div>
+        </motion.div>
       </Section>
 
       <Section id="contact" className="pb-10 pt-4 sm:pb-14 sm:pt-8">

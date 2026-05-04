@@ -193,7 +193,8 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
   }
 
-  .project-card {
+   .project-card {
+    position: relative;
     overflow: hidden;
     border-radius: 1.2rem;
     border: 1px solid rgba(255, 255, 255, 0.18);
@@ -217,8 +218,15 @@
     will-change: transform;
   }
 
-  .project-card:hover .project-image {
-    transform: scale(1.06);
+  .project-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(115deg, transparent 30%, rgba(225, 6, 0, 0.35) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 500ms ease;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .project-overlay {
@@ -228,8 +236,9 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(to top, rgba(11, 11, 15, 0.82), rgba(11, 11, 15, 0.22));
-    opacity: 0;
+    opacity: 1;
     transition: opacity 260ms ease;
+    z-index: 2;
   }
 
   .mobile-nav {
@@ -264,12 +273,17 @@
       box-shadow: 0 22px 50px rgba(225, 6, 0, 0.2);
     }
 
+    .project-card:hover::before {
+      transform: translateX(120%);
+    }
+
     .project-card:hover .project-image {
-      transform: scale(1.06);
+      transform: scale(1.09);
     }
 
     .project-card:hover .project-overlay {
       opacity: 1;
+      background: linear-gradient(to top, rgba(11, 11, 15, 0.9), rgba(11, 11, 15, 0.34));
     }
   }
 
