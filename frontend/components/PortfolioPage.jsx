@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import TopNav from '@/components/layout/TopNav'
 import Button from '@/components/ui/Button'
@@ -20,15 +20,17 @@ const stagger = {
   },
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-}
+const getFadeUp = (reducedMotion) => ({
+  hidden: reducedMotion ? { opacity: 0 } : { opacity: 0, y: 28, scale: 0.98 },
+  visible: reducedMotion
+    ? { opacity: 1, transition: { duration: 0.22, ease: 'linear' } }
+    : {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+      },
+})
 
 const skillList = [
   'Frontend Architecture',
@@ -59,6 +61,8 @@ const techStackItems = [
 ]
 
 export default function PortfolioPage() {
+  const prefersReducedMotion = useReducedMotion()
+
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const cursorX = useMotionValue(0)
@@ -72,12 +76,14 @@ export default function PortfolioPage() {
   const smoothX = useSpring(mouseX, { stiffness: 80, damping: 18, mass: 0.3 })
   const smoothY = useSpring(mouseY, { stiffness: 80, damping: 18, mass: 0.3 })
 
-  const portraitX = useTransform(smoothX, [-1, 1], [-16, 16])
-  const portraitY = useTransform(smoothY, [-1, 1], [-12, 12])
-  const orbOneX = useTransform(smoothX, [-1, 1], [-24, 24])
-  const orbOneY = useTransform(smoothY, [-1, 1], [-20, 20])
-  const orbTwoX = useTransform(smoothX, [-1, 1], [18, -18])
-  const orbTwoY = useTransform(smoothY, [-1, 1], [14, -14])
+  const portraitX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [-16, 16])
+  const portraitY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [-12, 12])
+  const orbOneX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [-24, 24])
+  const orbOneY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [-20, 20])
+  const orbTwoX = useTransform(smoothX, [-1, 1], prefersReducedMotion ? [0, 0] : [18, -18])
+  const orbTwoY = useTransform(smoothY, [-1, 1], prefersReducedMotion ? [0, 0] : [14, -14])
+
+  const fadeUp = useMemo(() => getFadeUp(prefersReducedMotion), [prefersReducedMotion])
 
   const heroHandlers = useMemo(
     () => ({
@@ -97,6 +103,8 @@ export default function PortfolioPage() {
   )
 
   useEffect(() => {
+    if (prefersReducedMotion) return undefined
+
     const isFinePointer = window.matchMedia('(pointer: fine)').matches
     if (!isFinePointer) return undefined
 
@@ -121,7 +129,7 @@ export default function PortfolioPage() {
       window.removeEventListener('mousemove', handleMove)
       window.removeEventListener('mouseout', handleLeave)
     }
-  }, [cursorX, cursorY])
+  }, [cursorX, cursorY, prefersReducedMotion])
 
   return (
     <main className="portfolio-root">
@@ -134,10 +142,11 @@ export default function PortfolioPage() {
 
       <motion.div
         className="custom-cursor"
+        aria-hidden={prefersReducedMotion}
         style={{ x: cursorXSpring, y: cursorYSpring }}
         animate={{
-          opacity: cursorVisible ? 1 : 0,
-          scale: cursorVisible ? (cursorInteractive ? 1.75 : 1) : 0.5,
+          opacity: prefersReducedMotion ? 0 : cursorVisible ? 1 : 0,
+          scale: prefersReducedMotion ? 1 : cursorVisible ? (cursorInteractive ? 1.75 : 1) : 0.5,
           backgroundColor: cursorInteractive ? 'rgba(225, 6, 0, 0.35)' : 'rgba(255, 255, 255, 0.22)',
         }}
         transition={{ duration: 0.18 }}
@@ -224,7 +233,7 @@ export default function PortfolioPage() {
                     transition={{
                       duration,
                       delay,
-                      repeat: Infinity,
+                      repeat: prefersReducedMotion ? 0 : Infinity,
                       ease: 'easeInOut',
                     }}
                   >
@@ -237,8 +246,8 @@ export default function PortfolioPage() {
 
           <motion.div style={{ x: portraitX, y: portraitY }} className="hero-portrait-shell hidden sm:block">
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              animate={prefersReducedMotion ? { y: 0 } : { y: [0, -10, 0] }}
+              transition={{ duration: prefersReducedMotion ? 0.2 : 6, repeat: prefersReducedMotion ? 0 : Infinity, ease: prefersReducedMotion ? 'linear' : 'easeInOut' }}
               className="hero-portrait-card"
             >
               <Image
