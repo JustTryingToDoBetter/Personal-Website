@@ -16,7 +16,7 @@ export const projects = [
     category: 'FinTech',
     tech: ['R', 'Monte Carlo', 'Risk Modeling', 'Statistics'],
     impact: 'Improved scenario coverage with multiple Monte Carlo models for downside-risk estimation.',
-    href: 'https://github.com/JustTryingToDoBetter/portfolio-simulation-engine',
+    href: 'https://github.com/JustTryingToDoBetter/portfolio-simulation',
     description: 'A modular financial risk and portfolio simulation engine in R for estimating downside risk under multiple Monte Carlo approaches.',
     image:
       'https://images.unsplash.com/photo-1545665277-5937489579f2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -27,7 +27,7 @@ export const projects = [
     category: 'FinTech',
     tech: ['Node.js', 'API Design', 'Security', 'PostgreSQL'],
     impact: 'Enabled reliable transaction handling with a secure and horizontally scalable service design.',
-    href: 'https://github.com/JustTryingToDoBetter/payment-processing-system',
+    href: 'https://github.com/JustTryingToDoBetter/payment-processing-demo',
     description: 'A secure and scalable payment processing system for handling transactions.',
     image:
       'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -38,7 +38,7 @@ export const projects = [
     category: 'Systems',
     tech: ['FastAPI', 'Docker', 'Microservices', 'Queueing'],
     impact: 'Reduced processing bottlenecks by distributing jobs across containerized worker services.',
-    href: 'https://github.com/JustTryingToDoBetter/distributed-video-processing-platform',
+    href: 'https://github.com/JustTryingToDoBetter/video-platform',
     description: 'Distributed video processing platform built with FastAPI, Docker, and microservices architecture',
     image:
       'https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -60,7 +60,7 @@ export const projects = [
     category: 'AI',
     tech: ['Evolutionary Computing', 'Symbolic Regression', 'Python'],
     impact: 'Modeled noise-driven randomization behavior through iterative evolutionary search techniques.',
-    href: 'https://github.com/JustTryingToDoBetter/cipher-engine',
+    href: 'https://github.com/JustTryingToDoBetter/Cipher',
     description: 'The system leverages Evolutionary Computing (EC) and Symbolic Regression to simulate random number generation using real noise data',
     image:
       'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
