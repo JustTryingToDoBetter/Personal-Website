@@ -101,7 +101,7 @@ function ProjectCard({ project, index, prefersReducedMotion }) {
       <div className="project-image-wrap">
         <Image src={project.image} alt={project.title} width={900} height={580} className="project-image" loading="lazy" />
         <div className="project-overlay">
-          <span className="rounded-full border border-white/45 bg-black/35 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">View Details</span>
+          <span className="rounded-full border border-white/45 bg-black/35 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">Open GitHub Repo</span>
         </div>
       </div>
       <div className="p-4 sm:p-5">
@@ -112,7 +112,7 @@ function ProjectCard({ project, index, prefersReducedMotion }) {
         <p className="mt-2 text-xs text-gray-200 sm:text-sm">{project.description}</p>
         {!!project.tech?.length && <div className="mt-3 flex flex-wrap gap-1.5">{project.tech.map((item) => <span key={item} className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] text-gray-100 sm:text-xs">{item}</span>)}</div>}
         {project.impact ? <p className="mt-3 text-xs text-gray-300 sm:text-sm"><span className="text-red-300">Impact:</span> {project.impact}</p> : null}
-        <div className="mt-4 text-sm font-medium text-red-300">View Details →</div>
+        <div className="mt-4 text-sm font-medium text-red-300">Open GitHub Repo →</div>
       </div>
     </>
   )
